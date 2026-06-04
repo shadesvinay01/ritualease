@@ -1,0 +1,130 @@
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Warm premium Indian palette */
+    --background: 36 40% 97%;
+    --foreground: 25 35% 14%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 25 35% 14%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 25 35% 14%;
+
+    /* Crimson rose (logo) */
+    --primary: 348 72% 42%;
+    --primary-foreground: 36 40% 97%;
+    --primary-glow: 348 80% 58%;
+
+    /* Warm gold */
+    --secondary: 38 55% 55%;
+    --secondary-foreground: 25 35% 14%;
+
+    --muted: 36 25% 92%;
+    --muted-foreground: 25 15% 40%;
+
+    /* Beige accent */
+    --accent: 36 45% 88%;
+    --accent-foreground: 25 35% 14%;
+
+    --destructive: 0 70% 50%;
+    --destructive-foreground: 36 40% 97%;
+
+    --border: 36 25% 86%;
+    --input: 36 25% 88%;
+    --ring: 348 72% 42%;
+
+    --radius: 1rem;
+
+    /* Brand tokens */
+    --gold: 38 65% 52%;
+    --gold-soft: 38 70% 78%;
+    --rose: 348 72% 42%;
+    --rose-deep: 348 72% 32%;
+    --cream: 36 50% 95%;
+    --maroon: 348 50% 20%;
+
+    --gradient-warm: linear-gradient(135deg, hsl(36 50% 95%) 0%, hsl(36 45% 88%) 100%);
+    --gradient-gold: linear-gradient(135deg, hsl(38 65% 52%) 0%, hsl(38 75% 65%) 100%);
+    --gradient-rose: linear-gradient(135deg, hsl(348 72% 42%) 0%, hsl(348 80% 58%) 100%);
+    --gradient-hero: linear-gradient(180deg, hsl(25 40% 12% / 0.1) 0%, hsl(25 40% 12% / 0.75) 100%);
+
+    /* Mood gradients for package tiles (soft, content-readable) */
+    --mood-kids:         linear-gradient(135deg, hsl(38 100% 92%) 0%, hsl(200 90% 90%) 100%);
+    --mood-romance:      linear-gradient(135deg, hsl(348 90% 94%) 0%, hsl(20 90% 90%) 100%);
+    --mood-bachelorette: linear-gradient(135deg, hsl(310 85% 92%) 0%, hsl(280 80% 90%) 100%);
+    --mood-house:        linear-gradient(135deg, hsl(45 85% 92%) 0%, hsl(160 50% 90%) 100%);
+    --mood-puja-sattva:  linear-gradient(135deg, hsl(48 90% 90%) 0%, hsl(36 80% 86%) 100%);
+    --mood-puja-shiva:   linear-gradient(135deg, hsl(220 40% 90%) 0%, hsl(260 40% 88%) 100%);
+    --mood-puja-ganesh:  linear-gradient(135deg, hsl(20 90% 90%) 0%, hsl(45 90% 88%) 100%);
+    --mood-puja-shanti:  linear-gradient(135deg, hsl(160 50% 90%) 0%, hsl(190 60% 90%) 100%);
+
+    --shadow-soft: 0 4px 20px -4px hsl(25 35% 14% / 0.08);
+    --shadow-elegant: 0 20px 60px -20px hsl(348 50% 20% / 0.25);
+    --shadow-gold: 0 10px 40px -10px hsl(38 65% 52% / 0.4);
+
+    --transition-smooth: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .dark {
+    --background: 25 35% 8%;
+    --foreground: 36 40% 95%;
+    --card: 25 30% 12%;
+    --card-foreground: 36 40% 95%;
+    --popover: 25 30% 12%;
+    --popover-foreground: 36 40% 95%;
+    --primary: 348 80% 58%;
+    --primary-foreground: 36 40% 97%;
+    --secondary: 38 55% 55%;
+    --secondary-foreground: 25 35% 14%;
+    --muted: 25 20% 18%;
+    --muted-foreground: 36 20% 70%;
+    --accent: 25 25% 20%;
+    --accent-foreground: 36 40% 95%;
+    --border: 25 20% 20%;
+    --input: 25 20% 20%;
+    --ring: 348 80% 58%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-family: 'Inter', sans-serif;
+  }
+  h1, h2, h3, h4, .font-display {
+    font-family: 'Fraunces', serif;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+  }
+}
+
+@layer utilities {
+  .bg-gradient-warm { background: var(--gradient-warm); }
+  .bg-gradient-gold { background: var(--gradient-gold); }
+  .bg-gradient-rose { background: var(--gradient-rose); }
+  .bg-mood-kids         { background: var(--mood-kids); }
+  .bg-mood-romance      { background: var(--mood-romance); }
+  .bg-mood-bachelorette { background: var(--mood-bachelorette); }
+  .bg-mood-house        { background: var(--mood-house); }
+  .bg-mood-puja-sattva  { background: var(--mood-puja-sattva); }
+  .bg-mood-puja-shiva   { background: var(--mood-puja-shiva); }
+  .bg-mood-puja-ganesh  { background: var(--mood-puja-ganesh); }
+  .bg-mood-puja-shanti  { background: var(--mood-puja-shanti); }
+  .shadow-soft { box-shadow: var(--shadow-soft); }
+  .shadow-elegant { box-shadow: var(--shadow-elegant); }
+  .shadow-gold { box-shadow: var(--shadow-gold); }
+  .text-gold { color: hsl(var(--gold)); }
+  .bg-cream { background-color: hsl(var(--cream)); }
+  .text-maroon { color: hsl(var(--maroon)); }
+  .scrollbar-hide::-webkit-scrollbar { display: none; }
+  .scrollbar-hide { scrollbar-width: none; }
+}
