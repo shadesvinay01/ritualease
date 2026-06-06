@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Star } from "lucide-react";
 import { useEffect, useState } from "react";
-import hero from "@/assets/hero-celebration.jpg";
+import hero from "@/assets/hero-celebration-premium.png";
 import puja from "@/assets/pkg-puja.jpg";
 import kids from "@/assets/pkg-kids-party.jpg";
 import anniv from "@/assets/pkg-anniversary.jpg";
@@ -38,7 +38,7 @@ export const Hero = () => {
             width={1920}
             height={1080}
             loading={i === 0 ? "eager" : "lazy"}
-            className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-[1200ms] ease-out ${
+            className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ease-out ${
               i === index ? "opacity-100" : "opacity-0"
             }`}
           />

@@ -3,6 +3,10 @@ import { Footer } from "@/components/ritual/Footer";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
 import { CheckCircle2, Clock, Truck, Package, PackageCheck } from "lucide-react";
+import placedImg from "@/assets/tracker-placed.png";
+import preparingImg from "@/assets/tracker-preparing.png";
+import transitImg from "@/assets/tracker-transit.png";
+import deliveredImg from "@/assets/tracker-delivered.png";
 
 export default function Tracker() {
   // Mock data for order
@@ -13,11 +17,11 @@ export default function Tracker() {
     estimatedDelivery: "Today, 5:30 PM",
     items: ["Premium Wedding Package", "Extra Floral Setup"],
     checkpoints: [
-      { id: 1, title: "Order Placed", time: "10:00 AM", completed: true, icon: <CheckCircle2 className="h-5 w-5 text-green-500" /> },
+      { id: 1, title: "Order Placed", time: "10:00 AM", completed: true, icon: <CheckCircle2 className="h-5 w-5 text-green-500" />, image: placedImg },
       { id: 2, title: "Confirmed by Vendor", time: "10:30 AM", completed: true, icon: <CheckCircle2 className="h-5 w-5 text-green-500" /> },
-      { id: 3, title: "Preparing / Packaging", time: "1:00 PM", completed: true, icon: <Package className="h-5 w-5 text-green-500" /> },
-      { id: 4, title: "On the Way", time: "4:00 PM", completed: false, icon: <Truck className="h-5 w-5 text-primary" />, current: true },
-      { id: 5, title: "Delivered", time: "Pending", completed: false, icon: <PackageCheck className="h-5 w-5 text-muted-foreground" /> },
+      { id: 3, title: "Preparing / Packaging", time: "1:00 PM", completed: true, icon: <Package className="h-5 w-5 text-green-500" />, image: preparingImg },
+      { id: 4, title: "On the Way", time: "4:00 PM", completed: false, icon: <Truck className="h-5 w-5 text-primary" />, current: true, image: transitImg },
+      { id: 5, title: "Delivered", time: "Pending", completed: false, icon: <PackageCheck className="h-5 w-5 text-muted-foreground" />, image: deliveredImg },
     ],
   };
 
@@ -60,6 +64,11 @@ export default function Tracker() {
                       <h3 className={`font-semibold ${checkpoint.completed ? 'text-foreground' : (checkpoint.current ? 'text-primary' : 'text-muted-foreground')}`}>{checkpoint.title}</h3>
                       <time className="text-xs text-muted-foreground flex items-center"><Clock className="w-3 h-3 mr-1" />{checkpoint.time}</time>
                     </div>
+                    {checkpoint.image && (
+                      <div className="mt-3 rounded-md overflow-hidden h-32 md:h-40 relative">
+                        <img src={checkpoint.image} alt={checkpoint.title} className="absolute inset-0 w-full h-full object-cover" />
+                      </div>
+                    )}
                   </div>
                 </div>
               ))}
