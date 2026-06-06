@@ -12,6 +12,10 @@ import Auth from "./pages/Auth.tsx";
 import Account from "./pages/Account.tsx";
 import About from "./pages/About.tsx";
 import Upcoming from "./pages/Upcoming.tsx";
+import Tracker from "./pages/Tracker.tsx";
+import VendorDashboard from "./pages/VendorDashboard.tsx";
+import AdminDashboard from "./pages/AdminDashboard.tsx";
+import JoinUs from "./pages/JoinUs.tsx";
 import { WhatsAppFab } from "./components/ritual/WhatsAppFab";
 import { AuthProvider } from "./contexts/AuthContext";
 import { LocationPrompt } from "./components/location/LocationPrompt";
@@ -37,6 +41,10 @@ const App = () => (
             <Route path="/category/:slug" element={<Category />} />
             <Route path="/about" element={<About />} />
             <Route path="/upcoming" element={<Upcoming />} />
+            <Route path="/tracker" element={<Tracker />} />
+            <Route path="/vendor-dashboard" element={<VendorDashboard />} />
+            <Route path="/admin-dashboard" element={<AdminDashboard />} />
+            <Route path="/join-us" element={<JoinUs />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>
