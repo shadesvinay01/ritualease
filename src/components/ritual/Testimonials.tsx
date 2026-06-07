@@ -1,4 +1,5 @@
 import { Star } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 const reviews = [
   { name: "Priya Sharma", city: "Gurgaon", text: "Booked the kids birthday package — they handled everything. My son had the best day and I actually got to enjoy too!", rating: 5 },
@@ -7,17 +8,20 @@ const reviews = [
 ];
 
 export const Testimonials = () => (
-  <section className="py-20 md:py-28 bg-background">
+  <section className="py-20 md:py-28 bg-background" id="testimonials">
     <div className="container mx-auto px-4">
       <div className="grid md:grid-cols-2 gap-12 items-center mb-14">
         <div>
           <p className="text-sm uppercase tracking-[0.2em] text-rose font-semibold mb-3">Loved by families</p>
           <h2 className="font-display text-3xl md:text-5xl mb-4">1000+ celebrations delivered</h2>
-          <div className="flex items-center gap-3 mb-2">
+          <div className="flex items-center gap-3 mb-6">
             <div className="flex">{Array.from({length:5}).map((_,i)=><Star key={i} className="h-5 w-5 fill-gold text-gold" />)}</div>
             <span className="font-bold text-xl">4.8</span>
             <span className="text-muted-foreground">/ 5 from 2,400+ reviews</span>
           </div>
+          <Button variant="outline" className="rounded-full border-rose text-rose hover:bg-rose hover:text-white transition-all shadow-sm">
+            Write a Review
+          </Button>
         </div>
         <div className="grid grid-cols-3 gap-4 text-center">
           {[
