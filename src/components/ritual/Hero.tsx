@@ -28,8 +28,8 @@ export const Hero = () => {
   }, []);
 
   return (
-    <section className="relative overflow-hidden">
-      <div className="absolute inset-0">
+    <section className="relative">
+      <div className="absolute inset-0 overflow-hidden">
         {SLIDES.map((s, i) => (
           <img
             key={s.src}
