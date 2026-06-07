@@ -74,21 +74,32 @@ export const Hero = () => {
       <div className="mx-auto max-w-4xl bg-white rounded-full shadow-2xl p-2 pl-8 flex items-center justify-between border border-border/50">
         <div className="flex items-center gap-8 divide-x divide-border/40 w-full">
           {/* Occasion */}
-          <div className="flex flex-col justify-center py-2 flex-1 group cursor-pointer">
-            <span className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground group-hover:text-rose transition-colors">Occasion</span>
-            <span className="text-foreground font-semibold text-sm truncate">What are we celebrating?</span>
+          <div className="flex flex-col justify-center py-2 flex-1 group">
+            <span className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground group-hover:text-rose transition-colors mb-0.5">Occasion</span>
+            <select className="bg-transparent font-semibold text-sm text-foreground focus:outline-none cursor-pointer appearance-none">
+              <option value="">What are we celebrating?</option>
+              <option value="birthday">Birthday Party</option>
+              <option value="anniversary">Anniversary</option>
+              <option value="puja">Puja / Ritual</option>
+              <option value="bachelorette">Bachelorette</option>
+              <option value="other">Other Occasion</option>
+            </select>
           </div>
           
           {/* Location */}
-          <div className="flex flex-col justify-center py-2 pl-8 flex-1 group cursor-pointer">
-            <span className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground group-hover:text-rose transition-colors">Location</span>
-            <span className="text-foreground font-semibold text-sm truncate">Delhi NCR</span>
+          <div className="flex flex-col justify-center py-2 pl-8 flex-1 group">
+            <span className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground group-hover:text-rose transition-colors mb-0.5">Location</span>
+            <select className="bg-transparent font-semibold text-sm text-foreground focus:outline-none cursor-pointer appearance-none">
+              <option value="delhi">Delhi NCR</option>
+              <option value="mumbai" disabled>Mumbai (Coming soon)</option>
+              <option value="bangalore" disabled>Bangalore (Coming soon)</option>
+            </select>
           </div>
 
           {/* Date */}
-          <div className="flex flex-col justify-center py-2 pl-8 flex-1 group cursor-pointer">
-            <span className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground group-hover:text-rose transition-colors">Date</span>
-            <span className="text-foreground font-semibold text-sm truncate">Add dates</span>
+          <div className="flex flex-col justify-center py-2 pl-8 flex-1 group">
+            <span className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground group-hover:text-rose transition-colors mb-0.5">Date</span>
+            <input type="date" className="bg-transparent border-0 p-0 font-semibold text-sm text-foreground focus:ring-0 focus:outline-none cursor-pointer" />
           </div>
         </div>
 
