@@ -1,5 +1,6 @@
 import { Star } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useState } from "react";
 import {
   Carousel,
   CarouselContent,
@@ -26,44 +27,60 @@ const reviews = [
   { name: "Vikram Singh", city: "Mumbai", text: "Used RitualEase for a house party. The bartender and catering were top notch. Highly recommended!", rating: 4 },
 ];
 
-export const Testimonials = () => (
-  <section className="py-20 md:py-28 bg-background" id="testimonials">
-    <div className="container mx-auto px-4">
-      <div className="grid lg:grid-cols-2 gap-12 items-center mb-14">
-        <div>
-          <p className="text-sm uppercase tracking-[0.2em] text-rose font-semibold mb-3">Loved by families</p>
-          <h2 className="font-display text-3xl md:text-5xl mb-4">1000+ celebrations delivered</h2>
-          <div className="flex items-center gap-3 mb-6">
-            <div className="flex">{Array.from({length:5}).map((_,i)=><Star key={i} className="h-5 w-5 fill-gold text-gold" />)}</div>
-            <span className="font-bold text-xl">4.8</span>
-            <span className="text-muted-foreground">/ 5 from 2,400+ reviews</span>
-          </div>
+export const Testimonials = () => {
+  const [rating, setRating] = useState(5);
+  const [hoverRating, setHoverRating] = useState(0);
 
-          {/* Write a Review Modal */}
-          <Dialog>
-            <DialogTrigger asChild>
-              <Button variant="outline" className="rounded-full border-rose text-rose hover:bg-rose hover:text-white transition-all shadow-sm">
-                Write a Review
-              </Button>
-            </DialogTrigger>
-            <DialogContent className="sm:max-w-md rounded-2xl">
-              <DialogHeader>
-                <DialogTitle className="font-display text-2xl">Write a Review</DialogTitle>
-                <DialogDescription>
-                  Share your RitualEase experience with other families!
-                </DialogDescription>
-              </DialogHeader>
-              <form className="space-y-4 mt-4" onSubmit={(e) => { e.preventDefault(); alert("Thank you for your review! It has been submitted for moderation."); }}>
-                <div className="flex gap-1 justify-center mb-4">
-                  {Array.from({length:5}).map((_,i)=><Star key={i} className="h-8 w-8 text-muted hover:fill-gold hover:text-gold cursor-pointer transition-colors" />)}
-                </div>
-                <Input placeholder="Your Name" required className="rounded-xl" />
-                <Input placeholder="City / Location" required className="rounded-xl" />
-                <Textarea placeholder="Tell us about your celebration..." required className="rounded-xl min-h-[120px]" />
-                <Button type="submit" variant="hero" className="w-full rounded-full">Submit Review</Button>
-              </form>
-            </DialogContent>
-          </Dialog>
+  return (
+    <section className="py-20 md:py-28 bg-background" id="testimonials">
+      <div className="container mx-auto px-4">
+        <div className="grid lg:grid-cols-2 gap-12 items-center mb-14">
+          <div>
+            <p className="text-sm uppercase tracking-[0.2em] text-rose font-semibold mb-3">Loved by families</p>
+            <h2 className="font-display text-3xl md:text-5xl mb-4">1000+ celebrations delivered</h2>
+            <div className="flex items-center gap-3 mb-6">
+              <div className="flex">{Array.from({length:5}).map((_,i)=><Star key={i} className="h-5 w-5 fill-gold text-gold" />)}</div>
+              <span className="font-bold text-xl">4.8</span>
+              <span className="text-muted-foreground">/ 5 from 2,400+ reviews</span>
+            </div>
+
+            {/* Write a Review Modal */}
+            <Dialog>
+              <DialogTrigger asChild>
+                <Button variant="outline" className="rounded-full border-rose text-rose hover:bg-rose hover:text-white transition-all shadow-sm">
+                  Write a Review
+                </Button>
+              </DialogTrigger>
+              <DialogContent className="sm:max-w-md rounded-2xl">
+                <DialogHeader>
+                  <DialogTitle className="font-display text-2xl">Write a Review</DialogTitle>
+                  <DialogDescription>
+                    Share your RitualEase experience with other families!
+                  </DialogDescription>
+                </DialogHeader>
+                <form className="space-y-4 mt-4" onSubmit={(e) => { e.preventDefault(); alert("Thank you for your review! It has been submitted for moderation."); }}>
+                  <div className="flex gap-1 justify-center mb-4">
+                    {Array.from({length:5}).map((_,i) => {
+                      const starValue = i + 1;
+                      const isActive = starValue <= (hoverRating || rating);
+                      return (
+                        <Star 
+                          key={i} 
+                          className={`h-8 w-8 cursor-pointer transition-colors ${isActive ? 'fill-gold text-gold' : 'text-muted-foreground'}`}
+                          onMouseEnter={() => setHoverRating(starValue)}
+                          onMouseLeave={() => setHoverRating(0)}
+                          onClick={() => setRating(starValue)}
+                        />
+                      );
+                    })}
+                  </div>
+                  <Input placeholder="Your Name" required className="rounded-xl" />
+                  <Input placeholder="City / Location" required className="rounded-xl" />
+                  <Textarea placeholder="Tell us about your celebration..." required className="rounded-xl min-h-[120px]" />
+                  <Button type="submit" variant="hero" className="w-full rounded-full">Submit Review</Button>
+                </form>
+              </DialogContent>
+            </Dialog>
 
         </div>
         <div className="grid grid-cols-3 gap-4 text-center">
@@ -109,4 +126,5 @@ export const Testimonials = () => (
       </Carousel>
     </div>
   </section>
-);
+  );
+};
