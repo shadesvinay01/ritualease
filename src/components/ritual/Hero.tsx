@@ -62,12 +62,48 @@ export const Hero = () => {
           From birthdays to pujas — we handle everything, so you just enjoy the moment.
         </p>
 
-        <div className="flex flex-col sm:flex-row gap-3">
-          <Button variant="hero" size="xl" asChild><a href="#featured">Explore Packages</a></Button>
+        <div className="flex flex-col sm:flex-row gap-4 mb-20 md:mb-10">
+          <Button variant="hero" size="xl" className="shadow-lg shadow-gold/20" asChild><a href="#featured">Explore Packages</a></Button>
           <Button variant="outlineLight" size="xl" asChild><a href="/book">Plan My Celebration</a></Button>
         </div>
       </div>
     </div>
+
+    {/* The Premium Floating Booking Bar */}
+    <div className="absolute bottom-0 left-0 w-full translate-y-1/2 px-4 z-20 hidden md:block">
+      <div className="mx-auto max-w-4xl bg-white rounded-full shadow-2xl p-2 pl-8 flex items-center justify-between border border-border/50">
+        <div className="flex items-center gap-8 divide-x divide-border/40 w-full">
+          {/* Occasion */}
+          <div className="flex flex-col justify-center py-2 flex-1 group cursor-pointer">
+            <span className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground group-hover:text-rose transition-colors">Occasion</span>
+            <span className="text-foreground font-semibold text-sm truncate">What are we celebrating?</span>
+          </div>
+          
+          {/* Location */}
+          <div className="flex flex-col justify-center py-2 pl-8 flex-1 group cursor-pointer">
+            <span className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground group-hover:text-rose transition-colors">Location</span>
+            <span className="text-foreground font-semibold text-sm truncate">Delhi NCR</span>
+          </div>
+
+          {/* Date */}
+          <div className="flex flex-col justify-center py-2 pl-8 flex-1 group cursor-pointer">
+            <span className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground group-hover:text-rose transition-colors">Date</span>
+            <span className="text-foreground font-semibold text-sm truncate">Add dates</span>
+          </div>
+        </div>
+
+        {/* Search Button */}
+        <Button variant="hero" className="rounded-full h-14 px-8 ml-4 shrink-0 shadow-lg hover:shadow-gold/30 hover:scale-105 transition-all" asChild>
+          <a href="/book">
+            <Star className="w-4 h-4 mr-2 fill-current" />
+            Find Packages
+          </a>
+        </Button>
+      </div>
+    </div>
+    
+    {/* Bottom Padding spacer for the floating bar */}
+    <div className="h-12 md:h-20 bg-transparent hidden md:block" />
     </section>
   );
 };
