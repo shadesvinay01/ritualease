@@ -17,14 +17,20 @@ export const FeaturedPackages = () => {
   const list = FEATURED_IDS.map(id => PACKAGES.find(p => p.id === id)!).filter(Boolean);
 
   return (
-    <section className="py-20 md:py-28 bg-cream" id="featured">
-      <div className="container mx-auto px-4">
+    <section className="py-20 md:py-28 bg-background relative overflow-hidden" id="featured">
+      {/* Decorative background elements */}
+      <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none">
+        <div className="absolute top-[-10%] right-[-5%] w-[40%] h-[40%] rounded-full bg-rose/10 blur-[120px]" />
+        <div className="absolute bottom-[-10%] left-[-5%] w-[40%] h-[40%] rounded-full bg-gold/10 blur-[120px]" />
+      </div>
+
+      <div className="container mx-auto px-4 relative z-10">
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-12">
           <div className="max-w-xl">
             <p className="text-sm uppercase tracking-[0.2em] text-rose font-semibold mb-3">Featured packages</p>
-            <h2 className="font-display text-3xl md:text-5xl">Ready to book. Loved by everyone.</h2>
+            <h2 className="font-display text-3xl md:text-5xl text-foreground">Ready to book. Loved by everyone.</h2>
           </div>
-          <Button variant="ghost" className="text-rose font-semibold w-fit" asChild>
+          <Button variant="ghost" className="text-rose font-semibold w-fit hover:bg-white/5" asChild>
             <Link to="/book">View all packages →</Link>
           </Button>
         </div>
@@ -34,10 +40,11 @@ export const FeaturedPackages = () => {
             <Link
               key={p.id}
               to={`/package/${p.id}`}
-              className="group bg-card rounded-3xl overflow-hidden shadow-soft hover:shadow-elegant transition-all duration-500 hover:-translate-y-1 flex flex-col"
+              className="group bg-card/60 backdrop-blur-xl border border-white/5 rounded-3xl overflow-hidden shadow-soft hover:shadow-gold transition-all duration-500 hover:-translate-y-1 flex flex-col"
             >
               <div className="relative aspect-[5/4] overflow-hidden">
                 <img src={p.cover} alt={p.title} loading="lazy" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" width={1000} height={800} />
+                <div className="absolute inset-0 bg-gradient-to-t from-background/90 to-transparent" />
                 <span className="absolute top-4 left-4 px-3 py-1 rounded-full bg-gradient-gold text-maroon text-xs font-bold uppercase tracking-wide shadow-gold">
                   {TAGS[p.id] ?? p.category}
                 </span>
