@@ -19,6 +19,7 @@ const links = [
   { label: "Pujas", href: "/category/pujas" },
   { label: "Parties", href: "/category/parties" },
   { label: "Ala-Carte", href: "/category/alacarte" },
+  { label: "Invitation Maker", href: "/invitation-maker" },
   { label: "About Us", href: "/about" },
   { label: "Join as Vendor", href: "/join-us" },
 ];
