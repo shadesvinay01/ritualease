@@ -75,15 +75,25 @@ export default function InvitationPreview() {
       {/* Ambient orbs */}
       <div className="absolute top-1/4 right-1/4 w-[600px] h-[600px] bg-primary/5 rounded-full blur-[140px] pointer-events-none" />
 
-      {/* Header */}
-      <header className="relative z-10 px-6 py-4 flex items-center justify-between border-b border-border/60 bg-background/80 backdrop-blur-xl">
-        <Link to="/invitation-maker" className="flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors">
-          <ArrowLeft className="w-4 h-4" /> Back to Edit
-        </Link>
-        <div className="flex items-center gap-2">
-          <div className="sdot dn text-primary-foreground bg-green-500 border-green-500">✓</div><div className="w-8 h-0.5 bg-gradient-to-r from-green-500 to-primary"></div>
-          <div className="sdot act">2</div><div className="w-8 h-0.5 bg-border"></div>
-          <div className="sdot">3</div>
+      {/* Sleek Studio Toolbar */}
+      <header className="fixed top-0 w-full z-50 px-6 py-4 flex items-center justify-between border-b border-border/40 bg-background/60 backdrop-blur-2xl">
+        <div className="flex items-center gap-6">
+          <Link to="/invitation-maker" className="flex items-center gap-2 text-muted-foreground hover:text-primary transition-colors font-medium text-sm bg-muted/30 px-4 py-2 rounded-full">
+            <ArrowLeft className="w-4 h-4" /> Back to Edit
+          </Link>
+          <div className="hidden md:flex items-center gap-2 text-sm font-semibold tracking-wide text-foreground/80">
+            <Sparkles className="w-4 h-4 text-primary" /> RitualEase AI Studio
+          </div>
+        </div>
+        
+        {/* Progress Indicator */}
+        <div className="flex items-center gap-3">
+          <span className="text-xs font-bold uppercase tracking-widest text-muted-foreground">Step 2 of 3</span>
+          <div className="flex items-center gap-2">
+            <div className="w-3 h-2 rounded-full bg-green-500 shadow-[0_0_10px_rgba(34,197,94,0.5)]"></div>
+            <div className="w-8 h-2 rounded-full bg-primary shadow-[0_0_10px_rgba(var(--primary),0.5)]"></div>
+            <div className="w-3 h-2 rounded-full bg-border"></div>
+          </div>
         </div>
       </header>
 
