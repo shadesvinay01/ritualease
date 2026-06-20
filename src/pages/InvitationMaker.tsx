@@ -9,25 +9,43 @@ import { motion, AnimatePresence } from "framer-motion";
 import { InvitationCard } from "@/components/ritual/InvitationCard";
 
 const SUGGESTIONS = [
-  "Create an elegant, minimalist botanical invitation for our intimate wedding...",
-  "Modern Indian reception invite with subtle gold geometric lines...",
-  "Sophisticated ivory and sage green engagement announcement..."
+  "Create a Royal Rajput Wedding invite for Aarav and Priya in Jaipur...",
+  "Traditional Haldi ceremony with beautiful marigold florals...",
+  "Elegant South Indian wedding in Kerala backwaters..."
 ];
 
-const PREVIEW_THEMES = ["minimalist_botanical", "modern_clean", "pearl_ribbon", "geometric_marble"];
+const PREVIEW_THEMES = ["royal_rajput", "golden_mandala", "emerald_foil", "classic_damask"];
 
-// Minimalist Henna Overlay
-const MinimalistHennaOverlay = () => {
+// Royal Gold Dust particles
+const FloatingGoldDust = () => {
   return (
-    <div className="absolute inset-0 pointer-events-none opacity-[0.03]">
-      <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
-        <defs>
-          <pattern id="mehndi" x="0" y="0" width="120" height="120" patternUnits="userSpaceOnUse">
-            <path d="M60 0c33.137 0 60 26.863 60 60s-26.863 60-60 60S0 93.137 0 60 26.863 0 60 0zm0 4c-30.928 0-56 25.072-56 56s25.072 56 56 56 56-25.072 56-56S90.928 4 60 4zm0 28c15.464 0 28 12.536 28 28s-12.536 28-28 28-28-12.536-28-28 12.536-28 28-28zm0 4c-13.255 0-24 10.745-24 24s10.745 24 24 24 24-10.745 24-24-10.745-24-24-24z" fill="#4A3B32" fillRule="evenodd"/>
-          </pattern>
-        </defs>
-        <rect width="100%" height="100%" fill="url(#mehndi)" />
-      </svg>
+    <div className="absolute inset-0 overflow-hidden pointer-events-none">
+      {[...Array(30)].map((_, i) => (
+        <motion.div
+          key={i}
+          className="absolute w-1.5 h-1.5 rounded-full"
+          style={{
+            background: "radial-gradient(circle, rgba(251,191,36,1) 0%, rgba(217,119,6,0) 100%)",
+            boxShadow: "0 0 10px rgba(251,191,36,0.8)"
+          }}
+          initial={{
+            x: Math.random() * window.innerWidth,
+            y: Math.random() * window.innerHeight,
+            scale: Math.random() * 2,
+            opacity: Math.random() * 0.5 + 0.2,
+          }}
+          animate={{
+            y: [null, Math.random() * -100 - 50],
+            x: [null, Math.random() * 40 - 20],
+            opacity: [null, 0.9, 0],
+          }}
+          transition={{
+            duration: Math.random() * 6 + 4,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
+        />
+      ))}
     </div>
   );
 };
@@ -43,7 +61,7 @@ export default function InvitationMaker() {
   const [manualSubtitle, setManualSubtitle] = useState("Joyfully invite you to celebrate");
   const [manualDate, setManualDate] = useState("");
   const [manualVenue, setManualVenue] = useState("");
-  const [manualTheme, setManualTheme] = useState("minimalist_botanical");
+  const [manualTheme, setManualTheme] = useState("royal_rajput");
 
   const navigate = useNavigate();
 
@@ -95,32 +113,38 @@ export default function InvitationMaker() {
   };
 
   return (
-    <div className="min-h-screen bg-[#FDFBF7] text-[#4A3B32] flex flex-col relative overflow-hidden font-sans selection:bg-[#EAE0D5]/50">
+    <div className="min-h-screen bg-[#2A0800] text-[#FFF6E5] flex flex-col relative overflow-hidden font-serif selection:bg-amber-500/30">
       
-      {/* Subtle Ambient Background Gradients */}
-      <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-[#F2EBE1]/60 rounded-full blur-[120px] pointer-events-none" />
-      <div className="absolute bottom-0 left-0 w-[800px] h-[800px] bg-[#EAE0D5]/40 rounded-full blur-[120px] pointer-events-none" />
+      {/* Traditional Pattern Overlay */}
+      <div 
+        className="absolute inset-0 z-0 opacity-[0.03] pointer-events-none mix-blend-color-dodge"
+        style={{ backgroundImage: 'url("data:image/svg+xml,%3Csvg width=\'60\' height=\'60\' viewBox=\'0 0 60 60\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cg fill=\'none\' fill-rule=\'evenodd\'%3E%3Cg fill=\'%23fbbf24\' fill-opacity=\'1\'%3E%3Cpath d=\'M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z\'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")' }}
+      />
 
-      <MinimalistHennaOverlay />
+      {/* Royal Ambient Background Gradients */}
+      <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-red-900/40 rounded-full blur-[150px] pointer-events-none" />
+      <div className="absolute bottom-0 left-0 w-[800px] h-[800px] bg-amber-900/30 rounded-full blur-[150px] pointer-events-none" />
 
-      {/* Elegant Minimalist Toolbar */}
-      <header className="fixed top-0 w-full z-50 px-8 py-5 flex items-center justify-between border-b border-[#EAE0D5] bg-[#FDFBF7]/90 backdrop-blur-xl shadow-sm">
+      <FloatingGoldDust />
+
+      {/* Majestic Toolbar */}
+      <header className="fixed top-0 w-full z-50 px-8 py-5 flex items-center justify-between border-b border-amber-500/20 bg-[#2A0800]/80 backdrop-blur-3xl shadow-[0_4px_30px_rgba(0,0,0,0.5)]">
         <div className="flex items-center gap-8">
-          <Link to="/" className="flex items-center gap-2 text-[#4A3B32]/60 hover:text-[#4A3B32] transition-colors font-medium text-sm bg-white hover:bg-[#F2EBE1] px-5 py-2.5 rounded-full border border-[#EAE0D5]">
-            <ArrowLeft className="w-4 h-4" /> Back to Studio
+          <Link to="/" className="flex items-center gap-2 text-amber-500/80 hover:text-amber-400 transition-colors font-medium text-sm bg-black/20 hover:bg-black/40 px-5 py-2.5 rounded-full border border-amber-500/30 font-sans uppercase tracking-widest">
+            <ArrowLeft className="w-4 h-4" /> Return to Palace
           </Link>
-          <div className="hidden md:flex items-center gap-2 text-sm font-semibold tracking-widest text-[#4A3B32]/80 uppercase">
-            <Sparkles className="w-4 h-4 text-[#C19B76]" /> RitualEase Elegance
+          <div className="hidden md:flex items-center gap-3 text-lg font-semibold tracking-widest text-amber-500 uppercase">
+            <Sparkles className="w-5 h-5" /> RitualEase
           </div>
         </div>
         
-        {/* Minimal Progress Indicator */}
+        {/* Royal Progress Indicator */}
         <div className="flex items-center gap-4">
-          <span className="text-xs font-bold uppercase tracking-widest text-[#4A3B32]/40">Step 1 of 3</span>
+          <span className="text-xs font-bold uppercase tracking-widest text-amber-500/60 font-sans">Step 1 of 3</span>
           <div className="flex items-center gap-2">
-            <div className="w-10 h-1 rounded-full bg-[#C19B76]"></div>
-            <div className="w-3 h-1 rounded-full bg-[#EAE0D5]"></div>
-            <div className="w-3 h-1 rounded-full bg-[#EAE0D5]"></div>
+            <div className="w-12 h-1.5 rounded-full bg-gradient-to-r from-amber-400 to-yellow-200 shadow-[0_0_15px_rgba(251,191,36,0.6)]"></div>
+            <div className="w-3 h-1.5 rounded-full bg-amber-900/50"></div>
+            <div className="w-3 h-1.5 rounded-full bg-amber-900/50"></div>
           </div>
         </div>
       </header>
@@ -132,28 +156,34 @@ export default function InvitationMaker() {
         <div className="hidden lg:flex w-[45%] items-center justify-center p-12 relative overflow-hidden">
           <div className="relative z-10 w-full max-w-[400px] flex flex-col items-center">
 
+            {/* Archway Frame behind Card */}
+            <div className="absolute inset-[-40px] border-[3px] border-amber-500/20 rounded-t-[200px] rounded-b-xl z-0 pointer-events-none"></div>
+            <div className="absolute inset-[-20px] border border-amber-500/40 rounded-t-[180px] rounded-b-lg z-0 pointer-events-none"></div>
+
             <AnimatePresence mode="wait">
               <motion.div
                 key={previewThemeIndex}
-                initial={{ opacity: 0, scale: 0.98 }}
+                initial={{ opacity: 0, scale: 0.95 }}
                 animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 1.02 }}
-                transition={{ duration: 0.8, ease: "easeInOut" }}
-                className="w-full aspect-[3/4] overflow-hidden relative z-10 shadow-[0_20px_50px_rgba(74,59,50,0.06)] border border-[#EAE0D5] bg-white rounded-md"
+                exit={{ opacity: 0, scale: 1.05 }}
+                transition={{ duration: 1.2, ease: [0.25, 1, 0.5, 1] }}
+                className="w-full aspect-[3/4] overflow-hidden relative z-10 shadow-[0_20px_60px_rgba(0,0,0,0.8)] border-4 border-[#3a0a00] rounded-xl"
               >
+                {/* Gold inner border */}
+                <div className="absolute inset-0 border-2 border-amber-400/50 rounded-xl z-20 pointer-events-none"></div>
                 <InvitationCard 
                   themeId={PREVIEW_THEMES[previewThemeIndex]}
-                  title="Sarah & James"
-                  subtitle="Request the pleasure of your company"
+                  title="Aarav & Priya"
+                  subtitle="Joyfully invite you"
                   date="October 15, 2026"
-                  venue="The Botanical Gardens"
+                  venue="The Palace Gardens"
                 />
               </motion.div>
             </AnimatePresence>
 
-            <div className="mt-12 text-center relative z-10">
-              <h2 className="text-2xl font-normal font-serif text-[#4A3B32] tracking-wide">Modern Minimalist</h2>
-              <p className="text-[#4A3B32]/40 mt-2 font-semibold tracking-widest uppercase text-[10px]">Pure, Refined Elegance</p>
+            <div className="mt-16 text-center relative z-10">
+              <h2 className="text-4xl font-light tracking-widest text-amber-400">Royal Heritage</h2>
+              <p className="text-amber-500/60 mt-3 font-semibold tracking-widest uppercase text-xs font-sans">Crafted with precision</p>
             </div>
           </div>
         </div>
@@ -162,28 +192,28 @@ export default function InvitationMaker() {
         <div className="flex-1 flex flex-col p-6 lg:p-12 xl:p-20 overflow-y-auto">
           <div className="max-w-2xl w-full mx-auto">
             
-            <div className="mb-12">
-              <h1 className="text-5xl md:text-6xl font-serif font-normal mb-6 text-[#4A3B32] leading-tight">
+            <div className="mb-12 text-center lg:text-left">
+              <h1 className="text-5xl md:text-6xl font-normal mb-6 text-[#FFF6E5] leading-tight">
                 Design with <br/>
-                <span className="italic text-[#C19B76]">
-                  Delicate Precision
+                <span className="italic font-light text-transparent bg-clip-text bg-gradient-to-r from-amber-300 via-yellow-200 to-amber-500">
+                  Majestic Elegance
                 </span>
               </h1>
-              <p className="text-[#4A3B32]/60 text-xl font-light leading-relaxed">
-                Describe your sophisticated event. Our AI will curate an invitation defined by clean lines and subtle luxury.
+              <p className="text-amber-100/60 text-xl font-light leading-relaxed font-sans">
+                Describe your grand celebration. Our AI will craft an invitation worthy of royalty.
               </p>
             </div>
 
-            {/* Elegant Mode Switcher */}
-            <div className="bg-white/60 backdrop-blur-md border border-[#EAE0D5] rounded-xl p-1.5 mb-10 flex shadow-sm">
+            {/* Mode Switcher */}
+            <div className="bg-black/20 backdrop-blur-md border border-amber-500/20 rounded-2xl p-1.5 mb-10 flex shadow-2xl font-sans">
               <button 
-                className={`flex-1 py-3.5 rounded-lg text-sm font-semibold tracking-wide flex items-center justify-center gap-2 transition-all duration-300 ${mode === 'ai' ? 'bg-white text-[#4A3B32] shadow-sm border border-[#EAE0D5]' : 'text-[#4A3B32]/40 hover:text-[#4A3B32]'}`}
+                className={`flex-1 py-3.5 rounded-xl text-sm font-bold tracking-widest uppercase flex items-center justify-center gap-2 transition-all duration-500 ${mode === 'ai' ? 'bg-gradient-to-r from-amber-600 to-amber-800 text-white shadow-lg border border-amber-500/30' : 'text-amber-500/50 hover:text-amber-400'}`}
                 onClick={() => setMode('ai')}
               >
-                <Wand2 className="w-4 h-4 text-[#C19B76]" /> AI Generator
+                <Wand2 className="w-4 h-4" /> AI Generator
               </button>
               <button 
-                className={`flex-1 py-3.5 rounded-lg text-sm font-semibold tracking-wide flex items-center justify-center gap-2 transition-all duration-300 ${mode === 'manual' ? 'bg-white text-[#4A3B32] shadow-sm border border-[#EAE0D5]' : 'text-[#4A3B32]/40 hover:text-[#4A3B32]'}`}
+                className={`flex-1 py-3.5 rounded-xl text-sm font-bold tracking-widest uppercase flex items-center justify-center gap-2 transition-all duration-500 ${mode === 'manual' ? 'bg-gradient-to-r from-amber-600 to-amber-800 text-white shadow-lg border border-amber-500/30' : 'text-amber-500/50 hover:text-amber-400'}`}
                 onClick={() => setMode('manual')}
               >
                 <PenTool className="w-4 h-4" /> Manual Entry
@@ -194,57 +224,60 @@ export default function InvitationMaker() {
               {mode === 'ai' ? (
                 <motion.div
                   key="ai"
-                  initial={{ opacity: 0, y: 10 }}
+                  initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -10 }}
-                  transition={{ duration: 0.4 }}
+                  exit={{ opacity: 0, y: -20 }}
+                  transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
                   className="space-y-8"
                 >
                   <div className="relative group">
-                    <div className="relative bg-white border border-[#EAE0D5] group-focus-within:border-[#C19B76] rounded-xl shadow-sm transition duration-300 overflow-hidden">
-                      <div className="px-6 py-4 border-b border-[#EAE0D5]/50 flex items-center justify-between bg-[#FDFBF7]/50">
-                        <Label htmlFor="prompt" className="text-[10px] uppercase tracking-widest text-[#C19B76] font-bold flex items-center gap-2">
-                          <Sparkles className="w-3.5 h-3.5" /> Event Vision
+                    {/* Gold Box */}
+                    <div className="relative bg-[#1A0500]/80 backdrop-blur-xl border-2 border-amber-500/20 group-focus-within:border-amber-400 rounded-2xl shadow-2xl transition duration-500 overflow-hidden">
+                      <div className="px-6 py-4 border-b border-amber-500/10 flex items-center justify-between bg-black/20">
+                        <Label htmlFor="prompt" className="text-xs uppercase tracking-widest text-amber-500 font-bold flex items-center gap-3 font-sans">
+                          <Sparkles className="w-3.5 h-3.5" /> Your Event Details
                         </Label>
-                        <Zap className="w-3.5 h-3.5 text-[#4A3B32]/20" />
+                        <Zap className="w-4 h-4 text-amber-500/30" />
                       </div>
                       <Textarea 
                         id="prompt"
                         value={prompt}
                         onChange={(e) => setPrompt(e.target.value)}
-                        placeholder="e.g. Create a highly minimal ivory invitation for Sarah. Focus on clean serif typography and very subtle botanical accents..."
-                        className="min-h-[220px] text-lg font-light bg-transparent border-0 focus-visible:ring-0 text-[#4A3B32] p-6 resize-none placeholder:text-[#4A3B32]/30 leading-relaxed"
+                        placeholder="e.g. Create a royal wedding invitation for Sarah and James. We need it to feel incredibly luxurious, using deep reds and gold foil motifs..."
+                        className="min-h-[240px] text-2xl font-serif font-normal bg-transparent border-0 focus-visible:ring-0 text-amber-50 rounded-none p-8 resize-none placeholder:text-amber-500/20 leading-relaxed italic"
                       />
                     </div>
                   </div>
 
                   {/* Suggestion Chips */}
-                  <div className="flex flex-wrap gap-2">
+                  <div className="flex flex-wrap gap-3 font-sans">
                     {SUGGESTIONS.map((suggestion, i) => (
                       <button
                         key={i}
                         onClick={() => setPrompt(suggestion)}
-                        className="text-xs font-medium text-[#4A3B32]/60 bg-white hover:bg-[#F2EBE1] hover:text-[#4A3B32] border border-[#EAE0D5] px-4 py-2.5 rounded-full transition-all duration-300 text-left max-w-full truncate shadow-sm"
+                        className="text-xs font-semibold tracking-wide text-amber-200/60 bg-black/20 hover:bg-amber-900/40 hover:text-amber-100 border border-amber-500/20 px-5 py-3 rounded-full transition-all duration-300 text-left max-w-full truncate shadow-lg"
                       >
                         {suggestion}
                       </button>
                     ))}
                   </div>
 
-                  <div className="pt-6">
+                  <div className="pt-8 font-sans">
                     <Button 
                       size="lg" 
                       onClick={handleGenerate}
                       disabled={isGenerating || !prompt}
-                      className="w-full h-14 rounded-xl text-sm font-semibold tracking-widest uppercase bg-[#4A3B32] hover:bg-[#382b24] text-[#FDFBF7] shadow-lg hover:shadow-xl hover:-translate-y-0.5 transition-all duration-300 border-0"
+                      className="w-full h-16 rounded-xl text-lg font-bold bg-gradient-to-r from-amber-500 via-yellow-400 to-amber-500 hover:from-amber-400 hover:via-yellow-300 hover:to-amber-400 text-[#2A0800] shadow-[0_0_40px_rgba(251,191,36,0.2)] hover:shadow-[0_0_60px_rgba(251,191,36,0.4)] transition-all duration-500 border-0 group overflow-hidden relative"
                     >
+                      <div className="absolute inset-0 -translate-x-full group-hover:animate-[shimmer_1.5s_infinite] bg-gradient-to-r from-transparent via-white/40 to-transparent z-10" />
+                      
                       {isGenerating ? (
-                        <span className="flex items-center gap-3">
-                          <Sparkles className="w-4 h-4 animate-spin text-[#C19B76]" /> Curating Design...
+                        <span className="flex items-center gap-3 relative z-20">
+                          <Sparkles className="w-5 h-5 animate-spin" /> Crafting Invitation...
                         </span>
                       ) : (
-                        <span className="flex items-center gap-3">
-                          Generate Invitation <ArrowRight className="w-4 h-4 text-[#C19B76]" />
+                        <span className="flex items-center gap-3 relative z-20 uppercase tracking-widest">
+                          Generate Magic <ArrowRight className="w-5 h-5 group-hover:translate-x-2 transition-transform duration-300" />
                         </span>
                       )}
                     </Button>
@@ -253,42 +286,36 @@ export default function InvitationMaker() {
               ) : (
                 <motion.div
                   key="manual"
-                  initial={{ opacity: 0, y: 10 }}
+                  initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -10 }}
-                  className="bg-white border border-[#EAE0D5] rounded-xl p-8 space-y-8 shadow-sm"
+                  exit={{ opacity: 0, y: -20 }}
+                  className="bg-[#1A0500]/80 backdrop-blur-xl border-2 border-amber-500/20 rounded-2xl p-10 space-y-8 shadow-2xl font-sans"
                 >
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                    <div className="space-y-2">
-                      <Label className="text-[#4A3B32]/50 font-bold tracking-widest uppercase text-[9px]">Event Title / Hosts *</Label>
-                      <Input value={manualTitle} onChange={e => setManualTitle(e.target.value)} className="bg-[#FDFBF7] border-[#EAE0D5] focus:border-[#C19B76] text-[#4A3B32] h-12 rounded-lg px-4 shadow-sm" placeholder="e.g. Sarah & James" />
+                    <div className="space-y-3">
+                      <Label className="text-amber-500/60 font-bold tracking-widest uppercase text-[10px]">Event Title / Hosts *</Label>
+                      <Input value={manualTitle} onChange={e => setManualTitle(e.target.value)} className="bg-black/20 border-amber-500/20 focus:border-amber-400 text-amber-50 h-14 rounded-xl px-4 font-serif text-lg" placeholder="e.g. Sarah & James" />
                     </div>
-                    <div className="space-y-2">
-                      <Label className="text-[#4A3B32]/50 font-bold tracking-widest uppercase text-[9px]">Subtitle (Optional)</Label>
-                      <Input value={manualSubtitle} onChange={e => setManualSubtitle(e.target.value)} className="bg-[#FDFBF7] border-[#EAE0D5] focus:border-[#C19B76] text-[#4A3B32] h-12 rounded-lg px-4 shadow-sm" placeholder="e.g. Request your presence" />
+                    <div className="space-y-3">
+                      <Label className="text-amber-500/60 font-bold tracking-widest uppercase text-[10px]">Subtitle (Optional)</Label>
+                      <Input value={manualSubtitle} onChange={e => setManualSubtitle(e.target.value)} className="bg-black/20 border-amber-500/20 focus:border-amber-400 text-amber-50 h-14 rounded-xl px-4 font-serif text-lg" placeholder="e.g. Joyfully invite you" />
                     </div>
-                    <div className="space-y-2">
-                      <Label className="text-[#4A3B32]/50 font-bold tracking-widest uppercase text-[9px]">Date & Time *</Label>
-                      <Input value={manualDate} onChange={e => setManualDate(e.target.value)} className="bg-[#FDFBF7] border-[#EAE0D5] focus:border-[#C19B76] text-[#4A3B32] h-12 rounded-lg px-4 shadow-sm" placeholder="e.g. October 15, 2026" />
+                    <div className="space-y-3">
+                      <Label className="text-amber-500/60 font-bold tracking-widest uppercase text-[10px]">Date & Time *</Label>
+                      <Input value={manualDate} onChange={e => setManualDate(e.target.value)} className="bg-black/20 border-amber-500/20 focus:border-amber-400 text-amber-50 h-14 rounded-xl px-4 font-serif text-lg" placeholder="e.g. December 20, 2026" />
                     </div>
-                    <div className="space-y-2">
-                      <Label className="text-[#4A3B32]/50 font-bold tracking-widest uppercase text-[9px]">Venue / Location *</Label>
-                      <Input value={manualVenue} onChange={e => setManualVenue(e.target.value)} className="bg-[#FDFBF7] border-[#EAE0D5] focus:border-[#C19B76] text-[#4A3B32] h-12 rounded-lg px-4 shadow-sm" placeholder="e.g. The Botanical Gardens" />
+                    <div className="space-y-3">
+                      <Label className="text-amber-500/60 font-bold tracking-widest uppercase text-[10px]">Venue / Location *</Label>
+                      <Input value={manualVenue} onChange={e => setManualVenue(e.target.value)} className="bg-black/20 border-amber-500/20 focus:border-amber-400 text-amber-50 h-14 rounded-xl px-4 font-serif text-lg" placeholder="e.g. The Grand Hotel, Delhi" />
                     </div>
-                    <div className="space-y-2 md:col-span-2">
-                      <Label className="text-[#4A3B32]/50 font-bold tracking-widest uppercase text-[9px]">Theme</Label>
+                    <div className="space-y-3 md:col-span-2">
+                      <Label className="text-amber-500/60 font-bold tracking-widest uppercase text-[10px]">Theme</Label>
                       <select 
                         value={manualTheme}
                         onChange={(e) => setManualTheme(e.target.value)}
-                        className="w-full bg-[#FDFBF7] border border-[#EAE0D5] focus:border-[#C19B76] text-[#4A3B32] h-12 rounded-lg px-4 shadow-sm outline-none"
+                        className="w-full bg-[#1A0500] border border-amber-500/20 focus:border-amber-400 text-amber-50 h-14 rounded-xl px-4 font-serif text-lg outline-none"
                       >
-                        <optgroup label="Minimal & Clean Designs">
-                          <option value="minimalist_botanical">Minimalist Botanical</option>
-                          <option value="modern_clean">Modern Clean</option>
-                          <option value="pearl_ribbon">Pearl & Ribbon</option>
-                          <option value="geometric_marble">Geometric Marble</option>
-                        </optgroup>
-                        <optgroup label="Other Premium Designs">
+                        <optgroup label="Premium Vector Designs">
                           <option value="royal_rajput">Royal Rajput Archway</option>
                           <option value="golden_mandala">Golden Mandala</option>
                           <option value="watercolor_florals">Watercolor Florals</option>
@@ -299,12 +326,16 @@ export default function InvitationMaker() {
                           <option value="vintage_lace">Vintage Lace</option>
                           <option value="art_deco">Art Deco Gatsby</option>
                           <option value="celestial">Celestial Night</option>
+                          <option value="minimalist_botanical">Minimalist Botanical</option>
                           <option value="rose_gold_brush">Rose Gold Brushstrokes</option>
                           <option value="haldi_marigold">Traditional Haldi</option>
                           <option value="gothic_romance">Gothic Romance</option>
                           <option value="rustic_wood">Rustic Wood & Lights</option>
+                          <option value="modern_clean">Modern Clean</option>
                           <option value="boho_pampas">Boho Pampas Grass</option>
                           <option value="lotus_pond">Lotus Pond</option>
+                          <option value="pearl_ribbon">Pearl & Ribbon</option>
+                          <option value="geometric_marble">Geometric Marble</option>
                         </optgroup>
                       </select>
                     </div>
@@ -313,9 +344,9 @@ export default function InvitationMaker() {
                     <Button 
                       size="lg" 
                       onClick={handleManualSubmit}
-                      className="w-full h-14 rounded-xl text-sm font-semibold tracking-widest uppercase bg-[#4A3B32] hover:bg-[#382b24] text-[#FDFBF7] shadow-md hover:shadow-lg transition-all duration-300"
+                      className="w-full h-14 rounded-xl font-bold tracking-widest uppercase bg-gradient-to-r from-amber-500 to-yellow-500 text-[#2A0800] hover:opacity-90 shadow-lg transition-all duration-300"
                     >
-                      Continue to Design <ArrowRight className="ml-2 w-4 h-4 text-[#C19B76]" />
+                      Continue to Design <ArrowRight className="ml-2 w-5 h-5" />
                     </Button>
                   </div>
                 </motion.div>
@@ -326,28 +357,43 @@ export default function InvitationMaker() {
 
       </main>
 
-      {/* Minimalist Loading Overlay */}
+      {/* Royal Loading Overlay */}
       <AnimatePresence>
         {isGenerating && (
           <motion.div 
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[100] bg-[#FDFBF7]/98 backdrop-blur-sm flex flex-col items-center justify-center"
+            className="fixed inset-0 z-[100] bg-[#1A0500]/95 backdrop-blur-2xl flex flex-col items-center justify-center"
           >
+            {/* Soft Orb */}
+            <motion.div
+              animate={{ 
+                scale: [1, 1.2, 1],
+                opacity: [0.3, 0.8, 0.3],
+              }}
+              transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+              className="absolute w-96 h-96 bg-amber-600/30 rounded-full blur-[100px]"
+            />
+            
             <div className="relative z-10 flex flex-col items-center">
               <motion.div
                 animate={{ rotate: 360 }}
-                transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
-                className="w-16 h-16 border-2 border-[#EAE0D5] border-t-[#C19B76] rounded-full mb-8"
+                transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
+                className="w-24 h-24 border-t-2 border-r-2 border-amber-400 rounded-full mb-10 shadow-[0_0_30px_rgba(251,191,36,0.3)]"
               />
-              <h2 className="text-2xl font-serif text-[#4A3B32] mb-3 tracking-wide">Refining Details...</h2>
-              <p className="text-[#4A3B32]/40 font-bold tracking-widest uppercase text-[10px]">Curating minimalist vectors</p>
+              <h2 className="text-4xl font-serif font-light text-amber-100 mb-4 tracking-widest">Designing Masterpiece</h2>
+              <p className="text-amber-500/80 font-bold tracking-widest uppercase text-xs font-sans">Synthesizing vectors...</p>
             </div>
           </motion.div>
         )}
       </AnimatePresence>
 
+      <style dangerouslySetInnerHTML={{__html: `
+        @keyframes shimmer {
+          100% { transform: translateX(100%); }
+        }
+      `}} />
     </div>
   );
 }
