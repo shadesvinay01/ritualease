@@ -2,18 +2,52 @@ import { useState, useRef, useEffect } from "react";
 import { Sparkles, Download, Share2, ArrowLeft, Palette, QrCode, Video } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import { InvitationCard } from "@/components/ritual/InvitationCard";
 import { toPng } from "html-to-image";
 import jsPDF from "jspdf";
 
+// Royal Gold Dust particles
+const FloatingGoldDust = () => {
+  return (
+    <div className="absolute inset-0 overflow-hidden pointer-events-none">
+      {[...Array(30)].map((_, i) => (
+        <motion.div
+          key={i}
+          className="absolute w-1.5 h-1.5 rounded-full"
+          style={{
+            background: "radial-gradient(circle, rgba(251,191,36,1) 0%, rgba(217,119,6,0) 100%)",
+            boxShadow: "0 0 10px rgba(251,191,36,0.8)"
+          }}
+          initial={{
+            x: Math.random() * window.innerWidth,
+            y: Math.random() * window.innerHeight,
+            scale: Math.random() * 2,
+            opacity: Math.random() * 0.5 + 0.2,
+          }}
+          animate={{
+            y: [null, Math.random() * -100 - 50],
+            x: [null, Math.random() * 40 - 20],
+            opacity: [null, 0.9, 0],
+          }}
+          transition={{
+            duration: Math.random() * 6 + 4,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
+        />
+      ))}
+    </div>
+  );
+};
+
 export default function InvitationPreview() {
-  const [theme, setTheme] = useState("luxury_gold");
+  const [theme, setTheme] = useState("royal_rajput");
   const [eventData, setEventData] = useState<any>({
-    title: "Sarah & James",
-    subtitle: "Together with their families",
-    date: "December 20th, 2026",
-    venue: "The Grand Hotel, Delhi"
+    title: "Aarav & Priya",
+    subtitle: "Joyfully invite you",
+    date: "October 15, 2026",
+    venue: "The Palace Gardens"
   });
   const [isDownloading, setIsDownloading] = useState(false);
   const cardRef = useRef<HTMLDivElement>(null);
@@ -71,31 +105,39 @@ export default function InvitationPreview() {
   };
 
   return (
-    <div className="min-h-screen bg-[#FCFBF8] text-[#2C2825] flex flex-col relative overflow-hidden font-sans selection:bg-rose-200/50">
+    <div className="min-h-screen bg-[#2A0800] text-[#FFF6E5] flex flex-col relative overflow-hidden font-serif selection:bg-amber-500/30">
       
-      {/* Editorial Ambient Background Gradients */}
-      <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-rose-100/50 rounded-full blur-[120px] pointer-events-none" />
-      <div className="absolute bottom-0 left-0 w-[800px] h-[800px] bg-amber-50/50 rounded-full blur-[120px] pointer-events-none" />
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-indigo-50/30 rounded-full blur-[150px] pointer-events-none" />
+      {/* Traditional Pattern Overlay */}
+      <div 
+        className="absolute inset-0 z-0 opacity-[0.03] pointer-events-none mix-blend-color-dodge"
+        style={{ backgroundImage: 'url("data:image/svg+xml,%3Csvg width=\'60\' height=\'60\' viewBox=\'0 0 60 60\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cg fill=\'none\' fill-rule=\'evenodd\'%3E%3Cg fill=\'%23fbbf24\' fill-opacity=\'1\'%3E%3Cpath d=\'M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z\'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")' }}
+      />
 
-      {/* Elegant Editorial Toolbar */}
-      <header className="fixed top-0 w-full z-50 px-8 py-5 flex items-center justify-between border-b border-[#2C2825]/5 bg-white/70 backdrop-blur-3xl">
+      {/* Royal Ambient Background Gradients */}
+      <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-red-900/40 rounded-full blur-[150px] pointer-events-none" />
+      <div className="absolute bottom-0 left-0 w-[800px] h-[800px] bg-amber-900/30 rounded-full blur-[150px] pointer-events-none" />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-yellow-900/20 rounded-full blur-[150px] pointer-events-none" />
+
+      <FloatingGoldDust />
+
+      {/* Majestic Toolbar */}
+      <header className="fixed top-0 w-full z-50 px-8 py-5 flex items-center justify-between border-b border-amber-500/20 bg-[#2A0800]/80 backdrop-blur-3xl shadow-[0_4px_30px_rgba(0,0,0,0.5)]">
         <div className="flex items-center gap-8">
-          <Link to="/invitation-maker" className="flex items-center gap-2 text-[#2C2825]/60 hover:text-rose-600 transition-colors font-medium text-sm bg-white hover:bg-rose-50 px-5 py-2.5 rounded-full border border-[#2C2825]/5 shadow-sm">
+          <Link to="/invitation-maker" className="flex items-center gap-2 text-amber-500/80 hover:text-amber-400 transition-colors font-medium text-sm bg-black/20 hover:bg-black/40 px-5 py-2.5 rounded-full border border-amber-500/30 font-sans uppercase tracking-widest">
             <ArrowLeft className="w-4 h-4" /> Back to Edit
           </Link>
-          <div className="hidden md:flex items-center gap-2 text-sm font-semibold tracking-widest text-[#2C2825]/80 uppercase">
-            <Sparkles className="w-4 h-4 text-rose-400" /> RitualEase Magic Studio
+          <div className="hidden md:flex items-center gap-3 text-lg font-semibold tracking-widest text-amber-500 uppercase">
+            <Sparkles className="w-5 h-5" /> RitualEase
           </div>
         </div>
         
-        {/* Editorial Progress Indicator */}
+        {/* Royal Progress Indicator */}
         <div className="flex items-center gap-4">
-          <span className="text-xs font-bold uppercase tracking-widest text-[#2C2825]/40">Step 2 of 3</span>
+          <span className="text-xs font-bold uppercase tracking-widest text-amber-500/60 font-sans">Step 2 of 3</span>
           <div className="flex items-center gap-2">
-            <div className="w-3 h-1 rounded-full bg-[#10b981]"></div>
-            <div className="w-10 h-1 rounded-full bg-gradient-to-r from-rose-300 to-rose-400"></div>
-            <div className="w-3 h-1 rounded-full bg-[#2C2825]/10"></div>
+            <div className="w-3 h-1.5 rounded-full bg-green-500 shadow-[0_0_10px_rgba(34,197,94,0.5)]"></div>
+            <div className="w-12 h-1.5 rounded-full bg-gradient-to-r from-amber-400 to-yellow-200 shadow-[0_0_15px_rgba(251,191,36,0.6)]"></div>
+            <div className="w-3 h-1.5 rounded-full bg-amber-900/50"></div>
           </div>
         </div>
       </header>
@@ -106,18 +148,18 @@ export default function InvitationPreview() {
         {/* Canvas Area (Left) */}
         <div className="flex-1 flex flex-col items-center">
           <div className="w-full flex flex-col sm:flex-row items-center justify-between mb-8 gap-4 px-4">
-            <h2 className="text-3xl font-light font-display flex items-center gap-3 text-[#2C2825]">
-              <Sparkles className="w-6 h-6 text-rose-400" /> Your Masterpiece
+            <h2 className="text-3xl font-light tracking-widest flex items-center gap-3 text-amber-400">
+              <Sparkles className="w-6 h-6 text-amber-500" /> Your Masterpiece
             </h2>
             
-            <div className="flex items-center gap-3 bg-white/90 backdrop-blur-3xl border border-[#2C2825]/5 rounded-full px-5 py-2.5 shadow-md">
-              <Palette className="w-4 h-4 text-rose-400" />
+            <div className="flex items-center gap-3 bg-[#1A0500]/80 backdrop-blur-3xl border border-amber-500/20 rounded-full px-5 py-2.5 shadow-2xl">
+              <Palette className="w-4 h-4 text-amber-400" />
               <select 
                 value={theme}
                 onChange={(e) => setTheme(e.target.value)}
-                className="bg-transparent text-sm font-medium focus:outline-none text-[#2C2825] cursor-pointer"
+                className="bg-transparent text-sm font-sans font-medium focus:outline-none text-amber-50 cursor-pointer"
               >
-                <optgroup label="Premium Vector Designs" className="bg-white text-[#2C2825]">
+                <optgroup label="Premium Vector Designs" className="bg-[#2A0800] text-amber-50">
                   <option value="royal_rajput">Royal Rajput Archway</option>
                   <option value="golden_mandala">Golden Mandala</option>
                   <option value="watercolor_florals">Watercolor Florals</option>
@@ -146,12 +188,15 @@ export default function InvitationPreview() {
           <motion.div 
             initial={{ scale: 0.95, opacity: 0, y: 20 }}
             animate={{ scale: 1, opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-            className="w-full max-w-lg aspect-[3/4] rounded-[2rem] relative group shadow-[0_30px_60px_rgba(44,40,37,0.08)] border border-white"
-            ref={cardRef}
+            transition={{ duration: 0.8, ease: [0.25, 1, 0.5, 1] }}
+            className="w-full max-w-lg aspect-[3/4] relative group"
           >
-            <div className="absolute inset-0 bg-white rounded-[2rem] -z-10" />
-            <div className="absolute inset-0 overflow-hidden rounded-[2rem]">
+            {/* Archway Frame behind Card */}
+            <div className="absolute inset-[-40px] border-[3px] border-amber-500/20 rounded-t-[200px] rounded-b-xl z-0 pointer-events-none"></div>
+            <div className="absolute inset-[-20px] border border-amber-500/40 rounded-t-[180px] rounded-b-lg z-0 pointer-events-none"></div>
+
+            <div className="absolute inset-0 shadow-[0_30px_80px_rgba(0,0,0,0.8)] border-4 border-[#3a0a00] rounded-xl overflow-hidden z-10" ref={cardRef}>
+              <div className="absolute inset-0 border-2 border-amber-400/50 rounded-xl z-20 pointer-events-none"></div>
               <InvitationCard 
                 themeId={theme}
                 title={eventData.title}
@@ -164,39 +209,41 @@ export default function InvitationPreview() {
         </div>
 
         {/* Tools Area (Right) */}
-        <div className="w-full lg:w-[400px] flex flex-col gap-8">
+        <div className="w-full lg:w-[400px] flex flex-col gap-8 font-sans pt-10 lg:pt-0">
           
           <motion.div 
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="bg-white/90 backdrop-blur-3xl border border-[#2C2825]/5 rounded-[2rem] p-8 shadow-xl relative overflow-hidden"
+            className="bg-[#1A0500]/80 backdrop-blur-3xl border border-amber-500/20 rounded-2xl p-8 shadow-2xl relative overflow-hidden"
           >
-            <h3 className="text-xl font-light font-display text-[#2C2825] mb-6 flex items-center gap-3">
-              <Download className="w-5 h-5 text-rose-400" /> Export Assets
+            <div className="absolute top-0 right-0 w-32 h-32 bg-amber-500/10 blur-[50px] rounded-full pointer-events-none" />
+            
+            <h3 className="text-xl font-serif tracking-widest text-amber-400 mb-6 flex items-center gap-3">
+              <Download className="w-5 h-5 text-amber-500" /> Export Assets
             </h3>
             <div className="grid grid-cols-2 gap-4">
               <Button 
                 onClick={handlePDFDownload}
                 disabled={isDownloading}
                 variant="outline"
-                className="w-full h-auto flex flex-col py-8 rounded-2xl border-[#2C2825]/10 bg-[#FCFBF8] hover:bg-rose-50 hover:border-rose-300 text-[#2C2825] hover:text-rose-700 transition-all duration-300 shadow-sm"
+                className="w-full h-auto flex flex-col py-8 rounded-xl border-amber-500/20 bg-black/20 hover:bg-amber-900/40 hover:border-amber-400 text-amber-50 transition-all duration-300"
               >
                 <span className="font-bold text-lg">{isDownloading ? '...' : 'PDF'}</span>
-                <span className="text-[10px] text-[#2C2825]/40 mt-1 font-bold uppercase tracking-wider">Print Ready</span>
+                <span className="text-[10px] text-amber-500/60 mt-1 uppercase tracking-widest font-bold">Print Ready</span>
               </Button>
               <Button 
                 onClick={handleDownload} 
                 disabled={isDownloading}
                 variant="outline"
-                className="w-full h-auto flex flex-col py-8 rounded-2xl border-[#2C2825]/10 bg-[#FCFBF8] hover:bg-rose-50 hover:border-rose-300 text-[#2C2825] hover:text-rose-700 transition-all duration-300 shadow-sm"
+                className="w-full h-auto flex flex-col py-8 rounded-xl border-amber-500/20 bg-black/20 hover:bg-amber-900/40 hover:border-amber-400 text-amber-50 transition-all duration-300"
               >
                 <span className="font-bold text-lg">{isDownloading ? '...' : 'PNG'}</span>
-                <span className="text-[10px] text-[#2C2825]/40 mt-1 font-bold uppercase tracking-wider">High Res</span>
+                <span className="text-[10px] text-amber-500/60 mt-1 uppercase tracking-widest font-bold">High Res</span>
               </Button>
             </div>
-            <Button variant="outline" className="w-full mt-4 h-14 rounded-xl border-[#2C2825]/10 bg-transparent hover:bg-rose-50 text-[#2C2825]/70 hover:text-rose-700 transition-all">
-              <Video className="w-4 h-4 mr-2 text-rose-400" /> Generate Video Invite
+            <Button variant="outline" className="w-full mt-4 h-14 rounded-xl border-amber-500/20 bg-transparent hover:bg-amber-900/40 text-amber-200/80 hover:text-amber-50 transition-all">
+              <Video className="w-4 h-4 mr-2 text-amber-500" /> Generate Video Invite
             </Button>
           </motion.div>
 
@@ -204,19 +251,19 @@ export default function InvitationPreview() {
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8, delay: 0.3 }}
-            className="bg-white/90 backdrop-blur-3xl border border-[#2C2825]/5 rounded-[2rem] p-8 shadow-xl"
+            className="bg-[#1A0500]/80 backdrop-blur-3xl border border-amber-500/20 rounded-2xl p-8 shadow-2xl"
           >
-            <h3 className="text-xl font-light font-display text-[#2C2825] mb-6 flex items-center gap-3">
-              <Share2 className="w-5 h-5 text-rose-400" /> Share & RSVP
+            <h3 className="text-xl font-serif tracking-widest text-amber-400 mb-6 flex items-center gap-3">
+              <Share2 className="w-5 h-5 text-amber-500" /> Share & RSVP
             </h3>
             <div className="space-y-4">
               <Button 
                 onClick={handleWhatsAppShare}
-                className="w-full justify-start bg-[#25D366]/10 text-[#128C7E] hover:bg-[#25D366]/20 border border-[#25D366]/30 h-14 rounded-xl text-base font-medium transition-all shadow-sm"
+                className="w-full justify-start bg-[#25D366]/20 text-[#25D366] hover:bg-[#25D366]/30 border border-[#25D366]/30 h-14 rounded-xl text-base font-medium transition-all"
               >
                 Share on WhatsApp
               </Button>
-              <Button variant="outline" className="w-full justify-start h-14 rounded-xl border-[#2C2825]/10 bg-transparent hover:bg-gray-50 text-[#2C2825]/70 hover:text-[#2C2825] transition-all">
+              <Button variant="outline" className="w-full justify-start h-14 rounded-xl border-amber-500/20 bg-transparent hover:bg-amber-900/40 text-amber-200/80 hover:text-amber-50 transition-all">
                 <QrCode className="w-4 h-4 mr-3" /> Get QR Code
               </Button>
             </div>
@@ -227,7 +274,7 @@ export default function InvitationPreview() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.4 }}
           >
-            <Button className="w-full text-lg font-bold rounded-2xl h-16 bg-[#2C2825] hover:bg-[#1A1816] text-white shadow-xl hover:shadow-2xl transition-all duration-500 border-0">
+            <Button className="w-full text-lg font-bold tracking-widest uppercase rounded-xl h-16 bg-gradient-to-r from-amber-600 via-amber-500 to-amber-600 hover:from-amber-500 hover:via-yellow-500 hover:to-amber-500 text-[#2A0800] shadow-[0_0_30px_rgba(251,191,36,0.3)] hover:shadow-[0_0_50px_rgba(251,191,36,0.5)] transition-all duration-500 border-0">
               Publish & Manage RSVPs
             </Button>
           </motion.div>
