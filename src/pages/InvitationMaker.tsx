@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Sparkles, ArrowRight, ArrowLeft, Wand2, Zap, PenTool } from "lucide-react";
+import { Sparkles, ArrowRight, ArrowLeft, Wand2, Zap, PenTool, Music } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { Input } from "@/components/ui/input";
@@ -53,6 +53,7 @@ const FloatingGoldDust = () => {
 export default function InvitationMaker() {
   const [mode, setMode] = useState<"ai" | "manual">("ai");
   const [prompt, setPrompt] = useState("");
+  const [aiTone, setAiTone] = useState("Royal & Majestic");
   const [isGenerating, setIsGenerating] = useState(false);
   const [previewThemeIndex, setPreviewThemeIndex] = useState(0);
   
@@ -77,10 +78,11 @@ export default function InvitationMaker() {
     setIsGenerating(true);
     
     try {
+      const enhancedPrompt = `${prompt}\n\nPlease ensure the tone of the invitation text is: ${aiTone}`;
       const res = await fetch("http://localhost:8000/api/generate", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ prompt }),
+        body: JSON.stringify({ prompt: enhancedPrompt }),
       });
       
       if (!res.ok) throw new Error("Failed to generate");
@@ -228,8 +230,26 @@ export default function InvitationMaker() {
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -20 }}
                   transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-                  className="space-y-8"
+                  className="space-y-6"
                 >
+                  {/* Tone Selector */}
+                  <div className="bg-[#1A0500]/80 backdrop-blur-xl border border-amber-500/20 rounded-2xl p-6 shadow-2xl">
+                    <Label className="text-xs uppercase tracking-widest text-amber-500 font-bold flex items-center gap-2 mb-4 font-sans">
+                      <Music className="w-3.5 h-3.5" /> Select Invitation Tone
+                    </Label>
+                    <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+                      {["Royal & Majestic", "Poetic & Romantic", "Fun & Festive", "Modern Minimalist"].map(tone => (
+                        <button
+                          key={tone}
+                          onClick={() => setAiTone(tone)}
+                          className={`py-3 px-2 rounded-xl text-xs font-bold tracking-widest uppercase transition-all duration-300 font-sans ${aiTone === tone ? 'bg-gradient-to-r from-amber-600 to-amber-800 text-white shadow-[0_0_15px_rgba(251,191,36,0.3)] border border-amber-400' : 'bg-black/20 text-amber-500/60 hover:text-amber-400 border border-amber-500/10 hover:border-amber-500/30'}`}
+                        >
+                          {tone}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+
                   <div className="relative group">
                     {/* Gold Box */}
                     <div className="relative bg-[#1A0500]/80 backdrop-blur-xl border-2 border-amber-500/20 group-focus-within:border-amber-400 rounded-2xl shadow-2xl transition duration-500 overflow-hidden">

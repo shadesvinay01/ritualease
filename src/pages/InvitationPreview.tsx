@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from "react";
-import { Sparkles, Download, Share2, ArrowLeft, Palette, QrCode, Video } from "lucide-react";
+import { Sparkles, Download, Share2, ArrowLeft, Palette, QrCode, Video, PenLine } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
@@ -60,6 +60,18 @@ export default function InvitationPreview() {
       setEventData(parsed);
     }
   }, []);
+
+  const handleUpdateEventData = (field: string, value: string) => {
+    const newData = { ...eventData, [field]: value };
+    setEventData(newData);
+    // Also update local storage so changes persist
+    localStorage.setItem('generatedEvent', JSON.stringify({ ...newData, theme_id: theme }));
+  };
+
+  const handleThemeChange = (newTheme: string) => {
+    setTheme(newTheme);
+    localStorage.setItem('generatedEvent', JSON.stringify({ ...eventData, theme_id: newTheme }));
+  };
 
   const handleDownload = async () => {
     if (!cardRef.current) return;
@@ -156,7 +168,7 @@ export default function InvitationPreview() {
               <Palette className="w-4 h-4 text-amber-400" />
               <select 
                 value={theme}
-                onChange={(e) => setTheme(e.target.value)}
+                onChange={(e) => handleThemeChange(e.target.value)}
                 className="bg-transparent text-sm font-sans font-medium focus:outline-none text-amber-50 cursor-pointer"
               >
                 <optgroup label="Premium Vector Designs" className="bg-[#2A0800] text-amber-50">
@@ -209,13 +221,64 @@ export default function InvitationPreview() {
         </div>
 
         {/* Tools Area (Right) */}
-        <div className="w-full lg:w-[400px] flex flex-col gap-8 font-sans pt-10 lg:pt-0">
+        <div className="w-full lg:w-[400px] flex flex-col gap-6 font-sans pt-10 lg:pt-0 pb-20">
           
           <motion.div 
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8, delay: 0.1 }}
+            className="bg-[#1A0500]/80 backdrop-blur-3xl border border-amber-500/20 rounded-2xl p-6 shadow-2xl relative overflow-hidden"
+          >
+            <h3 className="text-xl font-serif tracking-widest text-amber-400 mb-4 flex items-center gap-3">
+              <PenLine className="w-5 h-5 text-amber-500" /> Customize Text
+            </h3>
+            <div className="space-y-4">
+              <div>
+                <label className="text-[10px] uppercase tracking-widest text-amber-500/60 font-bold mb-1 block">Names / Title</label>
+                <input 
+                  type="text" 
+                  value={eventData.title} 
+                  onChange={(e) => handleUpdateEventData('title', e.target.value)}
+                  className="w-full bg-black/20 border border-amber-500/20 rounded-xl px-4 py-2.5 text-amber-50 focus:outline-none focus:border-amber-400 font-serif text-lg"
+                />
+              </div>
+              <div>
+                <label className="text-[10px] uppercase tracking-widest text-amber-500/60 font-bold mb-1 block">Subtitle</label>
+                <input 
+                  type="text" 
+                  value={eventData.subtitle} 
+                  onChange={(e) => handleUpdateEventData('subtitle', e.target.value)}
+                  className="w-full bg-black/20 border border-amber-500/20 rounded-xl px-4 py-2.5 text-amber-50 focus:outline-none focus:border-amber-400 font-serif text-lg"
+                />
+              </div>
+              <div className="grid grid-cols-2 gap-3">
+                <div>
+                  <label className="text-[10px] uppercase tracking-widest text-amber-500/60 font-bold mb-1 block">Date</label>
+                  <input 
+                    type="text" 
+                    value={eventData.date} 
+                    onChange={(e) => handleUpdateEventData('date', e.target.value)}
+                    className="w-full bg-black/20 border border-amber-500/20 rounded-xl px-4 py-2.5 text-amber-50 focus:outline-none focus:border-amber-400 font-serif text-sm"
+                  />
+                </div>
+                <div>
+                  <label className="text-[10px] uppercase tracking-widest text-amber-500/60 font-bold mb-1 block">Venue</label>
+                  <input 
+                    type="text" 
+                    value={eventData.venue} 
+                    onChange={(e) => handleUpdateEventData('venue', e.target.value)}
+                    className="w-full bg-black/20 border border-amber-500/20 rounded-xl px-4 py-2.5 text-amber-50 focus:outline-none focus:border-amber-400 font-serif text-sm"
+                  />
+                </div>
+              </div>
+            </div>
+          </motion.div>
+
+          <motion.div 
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="bg-[#1A0500]/80 backdrop-blur-3xl border border-amber-500/20 rounded-2xl p-8 shadow-2xl relative overflow-hidden"
+            className="bg-[#1A0500]/80 backdrop-blur-3xl border border-amber-500/20 rounded-2xl p-6 shadow-2xl relative overflow-hidden"
           >
             <div className="absolute top-0 right-0 w-32 h-32 bg-amber-500/10 blur-[50px] rounded-full pointer-events-none" />
             
