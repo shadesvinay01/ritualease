@@ -21,6 +21,14 @@ export default function InvitationMaker() {
   const [prompt, setPrompt] = useState("");
   const [isGenerating, setIsGenerating] = useState(false);
   const [previewThemeIndex, setPreviewThemeIndex] = useState(0);
+  
+  // Manual Entry States
+  const [manualTitle, setManualTitle] = useState("");
+  const [manualSubtitle, setManualSubtitle] = useState("Joyfully invite you to celebrate");
+  const [manualDate, setManualDate] = useState("");
+  const [manualVenue, setManualVenue] = useState("");
+  const [manualTheme, setManualTheme] = useState("luxury_gold");
+
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -38,7 +46,7 @@ export default function InvitationMaker() {
       const res = await fetch("http://localhost:8000/api/generate", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ prompt: mode === 'ai' ? prompt : "Manual entry" }),
+        body: JSON.stringify({ prompt }),
       });
       
       if (!res.ok) throw new Error("Failed to generate");
@@ -51,6 +59,23 @@ export default function InvitationMaker() {
       alert("Failed to connect to AI Studio. Is the backend running on port 8000?");
       setIsGenerating(false);
     }
+  };
+
+  const handleManualSubmit = () => {
+    if (!manualTitle || !manualDate || !manualVenue) {
+      alert("Please fill in the required fields (Title, Date, Venue).");
+      return;
+    }
+    const data = {
+      id: Date.now(),
+      title: manualTitle,
+      subtitle: manualSubtitle,
+      date: manualDate,
+      venue: manualVenue,
+      theme_id: manualTheme
+    };
+    localStorage.setItem('generatedEvent', JSON.stringify(data));
+    navigate('/invitation-preview');
   };
 
   return (
@@ -220,26 +245,57 @@ export default function InvitationMaker() {
                 >
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                     <div className="space-y-3">
-                      <Label className="text-[#2C2825]/50 font-bold tracking-wide uppercase text-[10px]">Event Type</Label>
-                      <Input className="bg-white border-[#2C2825]/10 focus:border-rose-300 text-[#2C2825] h-14 rounded-xl px-4 shadow-sm" placeholder="e.g. Wedding, Birthday" />
+                      <Label className="text-[#2C2825]/50 font-bold tracking-wide uppercase text-[10px]">Event Title / Hosts *</Label>
+                      <Input value={manualTitle} onChange={e => setManualTitle(e.target.value)} className="bg-white border-[#2C2825]/10 focus:border-rose-300 text-[#2C2825] h-14 rounded-xl px-4 shadow-sm" placeholder="e.g. Sarah & James" />
                     </div>
                     <div className="space-y-3">
-                      <Label className="text-[#2C2825]/50 font-bold tracking-wide uppercase text-[10px]">Event Name / Hosts</Label>
-                      <Input className="bg-white border-[#2C2825]/10 focus:border-rose-300 text-[#2C2825] h-14 rounded-xl px-4 shadow-sm" placeholder="e.g. Sarah & James" />
+                      <Label className="text-[#2C2825]/50 font-bold tracking-wide uppercase text-[10px]">Subtitle (Optional)</Label>
+                      <Input value={manualSubtitle} onChange={e => setManualSubtitle(e.target.value)} className="bg-white border-[#2C2825]/10 focus:border-rose-300 text-[#2C2825] h-14 rounded-xl px-4 shadow-sm" placeholder="e.g. Joyfully invite you" />
                     </div>
                     <div className="space-y-3">
-                      <Label className="text-[#2C2825]/50 font-bold tracking-wide uppercase text-[10px]">Date</Label>
-                      <Input type="date" className="bg-white border-[#2C2825]/10 focus:border-rose-300 text-[#2C2825] h-14 rounded-xl px-4 shadow-sm" />
+                      <Label className="text-[#2C2825]/50 font-bold tracking-wide uppercase text-[10px]">Date & Time *</Label>
+                      <Input value={manualDate} onChange={e => setManualDate(e.target.value)} className="bg-white border-[#2C2825]/10 focus:border-rose-300 text-[#2C2825] h-14 rounded-xl px-4 shadow-sm" placeholder="e.g. December 20, 2026" />
                     </div>
                     <div className="space-y-3">
-                      <Label className="text-[#2C2825]/50 font-bold tracking-wide uppercase text-[10px]">Venue</Label>
-                      <Input className="bg-white border-[#2C2825]/10 focus:border-rose-300 text-[#2C2825] h-14 rounded-xl px-4 shadow-sm" placeholder="e.g. The Grand Hotel" />
+                      <Label className="text-[#2C2825]/50 font-bold tracking-wide uppercase text-[10px]">Venue / Location *</Label>
+                      <Input value={manualVenue} onChange={e => setManualVenue(e.target.value)} className="bg-white border-[#2C2825]/10 focus:border-rose-300 text-[#2C2825] h-14 rounded-xl px-4 shadow-sm" placeholder="e.g. The Grand Hotel, Delhi" />
+                    </div>
+                    <div className="space-y-3 md:col-span-2">
+                      <Label className="text-[#2C2825]/50 font-bold tracking-wide uppercase text-[10px]">Theme</Label>
+                      <select 
+                        value={manualTheme}
+                        onChange={(e) => setManualTheme(e.target.value)}
+                        className="w-full bg-white border border-[#2C2825]/10 focus:border-rose-300 text-[#2C2825] h-14 rounded-xl px-4 shadow-sm outline-none"
+                      >
+                        <optgroup label="Premium Vector Designs">
+                          <option value="royal_rajput">Royal Rajput Archway</option>
+                          <option value="golden_mandala">Golden Mandala</option>
+                          <option value="watercolor_florals">Watercolor Florals</option>
+                          <option value="emerald_foil">Emerald & Gold Foil</option>
+                          <option value="tropical_palm">Tropical Palm</option>
+                          <option value="classic_damask">Classic Damask</option>
+                          <option value="peacock_majesty">Peacock Majesty</option>
+                          <option value="vintage_lace">Vintage Lace</option>
+                          <option value="art_deco">Art Deco Gatsby</option>
+                          <option value="celestial">Celestial Night</option>
+                          <option value="minimalist_botanical">Minimalist Botanical</option>
+                          <option value="rose_gold_brush">Rose Gold Brushstrokes</option>
+                          <option value="haldi_marigold">Traditional Haldi</option>
+                          <option value="gothic_romance">Gothic Romance</option>
+                          <option value="rustic_wood">Rustic Wood & Lights</option>
+                          <option value="modern_clean">Modern Clean</option>
+                          <option value="boho_pampas">Boho Pampas Grass</option>
+                          <option value="lotus_pond">Lotus Pond</option>
+                          <option value="pearl_ribbon">Pearl & Ribbon</option>
+                          <option value="geometric_marble">Geometric Marble</option>
+                        </optgroup>
+                      </select>
                     </div>
                   </div>
                   <div className="pt-6">
                     <Button 
                       size="lg" 
-                      onClick={handleGenerate}
+                      onClick={handleManualSubmit}
                       className="w-full h-14 rounded-xl font-bold bg-[#2C2825] hover:bg-[#1A1816] text-white shadow-lg transition-all duration-300"
                     >
                       Continue to Design <ArrowRight className="ml-2 w-5 h-5 text-rose-300" />
