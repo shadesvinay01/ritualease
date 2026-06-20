@@ -9,45 +9,25 @@ import { motion, AnimatePresence } from "framer-motion";
 import { InvitationCard } from "@/components/ritual/InvitationCard";
 
 const SUGGESTIONS = [
-  "Create a joyful Haldi ceremony invite for Priya with marigold florals...",
-  "Bright and festive Mehendi celebration in saffron and pink...",
-  "Traditional Sangeet night with vibrant energy and warm colors..."
+  "Create an elegant, minimalist botanical invitation for our intimate wedding...",
+  "Modern Indian reception invite with subtle gold geometric lines...",
+  "Sophisticated ivory and sage green engagement announcement..."
 ];
 
-const PREVIEW_THEMES = ["haldi_marigold", "watercolor_florals", "rose_gold_brush", "boho_pampas"];
+const PREVIEW_THEMES = ["minimalist_botanical", "modern_clean", "pearl_ribbon", "geometric_marble"];
 
-// Falling Marigold Petals
-const FallingPetals = () => {
+// Minimalist Henna Overlay
+const MinimalistHennaOverlay = () => {
   return (
-    <div className="absolute inset-0 overflow-hidden pointer-events-none">
-      {[...Array(25)].map((_, i) => {
-        // Randomize petal colors between deep orange and bright yellow
-        const colors = ["bg-orange-500", "bg-yellow-400", "bg-amber-500"];
-        const color = colors[Math.floor(Math.random() * colors.length)];
-        return (
-          <motion.div
-            key={i}
-            className={`absolute w-3 h-4 rounded-t-full rounded-br-full ${color} opacity-60`}
-            style={{ filter: "blur(1px)" }}
-            initial={{
-              x: Math.random() * window.innerWidth,
-              y: Math.random() * -window.innerHeight - 100,
-              rotate: Math.random() * 360,
-              scale: Math.random() * 0.8 + 0.4,
-            }}
-            animate={{
-              y: window.innerHeight + 100,
-              x: `+=${Math.random() * 200 - 100}`,
-              rotate: `+=${Math.random() * 360 + 180}`,
-            }}
-            transition={{
-              duration: Math.random() * 10 + 10,
-              repeat: Infinity,
-              ease: "linear",
-            }}
-          />
-        );
-      })}
+    <div className="absolute inset-0 pointer-events-none opacity-[0.03]">
+      <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <pattern id="mehndi" x="0" y="0" width="120" height="120" patternUnits="userSpaceOnUse">
+            <path d="M60 0c33.137 0 60 26.863 60 60s-26.863 60-60 60S0 93.137 0 60 26.863 0 60 0zm0 4c-30.928 0-56 25.072-56 56s25.072 56 56 56 56-25.072 56-56S90.928 4 60 4zm0 28c15.464 0 28 12.536 28 28s-12.536 28-28 28-28-12.536-28-28 12.536-28 28-28zm0 4c-13.255 0-24 10.745-24 24s10.745 24 24 24 24-10.745 24-24-10.745-24-24-24z" fill="#4A3B32" fillRule="evenodd"/>
+          </pattern>
+        </defs>
+        <rect width="100%" height="100%" fill="url(#mehndi)" />
+      </svg>
     </div>
   );
 };
@@ -63,7 +43,7 @@ export default function InvitationMaker() {
   const [manualSubtitle, setManualSubtitle] = useState("Joyfully invite you to celebrate");
   const [manualDate, setManualDate] = useState("");
   const [manualVenue, setManualVenue] = useState("");
-  const [manualTheme, setManualTheme] = useState("haldi_marigold");
+  const [manualTheme, setManualTheme] = useState("minimalist_botanical");
 
   const navigate = useNavigate();
 
@@ -115,33 +95,32 @@ export default function InvitationMaker() {
   };
 
   return (
-    <div className="min-h-screen bg-[#FFFBF0] text-[#5C2B09] flex flex-col relative overflow-hidden font-sans selection:bg-orange-300/50">
+    <div className="min-h-screen bg-[#FDFBF7] text-[#4A3B32] flex flex-col relative overflow-hidden font-sans selection:bg-[#EAE0D5]/50">
       
-      {/* Festive Ambient Background Gradients */}
-      <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-orange-300/30 rounded-full blur-[150px] pointer-events-none" />
-      <div className="absolute bottom-0 left-0 w-[800px] h-[800px] bg-yellow-300/30 rounded-full blur-[150px] pointer-events-none" />
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-rose-200/20 rounded-full blur-[120px] pointer-events-none" />
+      {/* Subtle Ambient Background Gradients */}
+      <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-[#F2EBE1]/60 rounded-full blur-[120px] pointer-events-none" />
+      <div className="absolute bottom-0 left-0 w-[800px] h-[800px] bg-[#EAE0D5]/40 rounded-full blur-[120px] pointer-events-none" />
 
-      <FallingPetals />
+      <MinimalistHennaOverlay />
 
-      {/* Warm & Festive Toolbar */}
-      <header className="fixed top-0 w-full z-50 px-8 py-5 flex items-center justify-between border-b border-orange-200/50 bg-[#FFFBF0]/80 backdrop-blur-3xl shadow-sm">
+      {/* Elegant Minimalist Toolbar */}
+      <header className="fixed top-0 w-full z-50 px-8 py-5 flex items-center justify-between border-b border-[#EAE0D5] bg-[#FDFBF7]/90 backdrop-blur-xl shadow-sm">
         <div className="flex items-center gap-8">
-          <Link to="/" className="flex items-center gap-2 text-orange-800/60 hover:text-orange-600 transition-colors font-medium text-sm bg-orange-100/50 hover:bg-orange-200/60 px-5 py-2.5 rounded-full border border-orange-200">
-            <ArrowLeft className="w-4 h-4" /> Back to Celebrations
+          <Link to="/" className="flex items-center gap-2 text-[#4A3B32]/60 hover:text-[#4A3B32] transition-colors font-medium text-sm bg-white hover:bg-[#F2EBE1] px-5 py-2.5 rounded-full border border-[#EAE0D5]">
+            <ArrowLeft className="w-4 h-4" /> Back to Studio
           </Link>
-          <div className="hidden md:flex items-center gap-2 text-lg font-bold tracking-wide text-orange-600">
-            <Sparkles className="w-5 h-5 text-yellow-500" /> RitualEase Magic
+          <div className="hidden md:flex items-center gap-2 text-sm font-semibold tracking-widest text-[#4A3B32]/80 uppercase">
+            <Sparkles className="w-4 h-4 text-[#C19B76]" /> RitualEase Elegance
           </div>
         </div>
         
-        {/* Festive Progress Indicator */}
+        {/* Minimal Progress Indicator */}
         <div className="flex items-center gap-4">
-          <span className="text-xs font-bold uppercase tracking-widest text-orange-800/40">Step 1 of 3</span>
+          <span className="text-xs font-bold uppercase tracking-widest text-[#4A3B32]/40">Step 1 of 3</span>
           <div className="flex items-center gap-2">
-            <div className="w-10 h-2 rounded-full bg-gradient-to-r from-orange-400 to-yellow-400 shadow-[0_0_10px_rgba(249,115,22,0.3)]"></div>
-            <div className="w-3 h-2 rounded-full bg-orange-200"></div>
-            <div className="w-3 h-2 rounded-full bg-orange-200"></div>
+            <div className="w-10 h-1 rounded-full bg-[#C19B76]"></div>
+            <div className="w-3 h-1 rounded-full bg-[#EAE0D5]"></div>
+            <div className="w-3 h-1 rounded-full bg-[#EAE0D5]"></div>
           </div>
         </div>
       </header>
@@ -153,31 +132,28 @@ export default function InvitationMaker() {
         <div className="hidden lg:flex w-[45%] items-center justify-center p-12 relative overflow-hidden">
           <div className="relative z-10 w-full max-w-[400px] flex flex-col items-center">
 
-            {/* Festive Glow Behind Card */}
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[120%] bg-gradient-to-tr from-orange-400/20 to-yellow-300/20 blur-[60px] rounded-full z-0" />
-
             <AnimatePresence mode="wait">
               <motion.div
                 key={previewThemeIndex}
-                initial={{ opacity: 0, y: 30, rotate: -5 }}
-                animate={{ opacity: 1, y: 0, rotate: 0 }}
-                exit={{ opacity: 0, y: -30, rotate: 5 }}
-                transition={{ duration: 0.8, type: "spring", bounce: 0.4 }}
-                className="w-full aspect-[3/4] rounded-3xl overflow-hidden relative z-10 shadow-[0_30px_60px_rgba(234,88,12,0.15)] border-8 border-white"
+                initial={{ opacity: 0, scale: 0.98 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 1.02 }}
+                transition={{ duration: 0.8, ease: "easeInOut" }}
+                className="w-full aspect-[3/4] overflow-hidden relative z-10 shadow-[0_20px_50px_rgba(74,59,50,0.06)] border border-[#EAE0D5] bg-white rounded-md"
               >
                 <InvitationCard 
                   themeId={PREVIEW_THEMES[previewThemeIndex]}
-                  title="Priya's Haldi"
-                  subtitle="Let the celebrations begin"
-                  date="October 14, 2026"
-                  venue="The Courtyard"
+                  title="Sarah & James"
+                  subtitle="Request the pleasure of your company"
+                  date="October 15, 2026"
+                  venue="The Botanical Gardens"
                 />
               </motion.div>
             </AnimatePresence>
 
-            <div className="mt-12 text-center relative z-10 bg-white/60 backdrop-blur-md px-8 py-4 rounded-full border border-orange-100 shadow-sm">
-              <h2 className="text-2xl font-bold text-orange-600 font-display">Vibrant & Joyful</h2>
-              <p className="text-orange-800/50 mt-1 font-semibold uppercase text-[10px] tracking-widest">A Celebration of Color</p>
+            <div className="mt-12 text-center relative z-10">
+              <h2 className="text-2xl font-normal font-serif text-[#4A3B32] tracking-wide">Modern Minimalist</h2>
+              <p className="text-[#4A3B32]/40 mt-2 font-semibold tracking-widest uppercase text-[10px]">Pure, Refined Elegance</p>
             </div>
           </div>
         </div>
@@ -187,27 +163,27 @@ export default function InvitationMaker() {
           <div className="max-w-2xl w-full mx-auto">
             
             <div className="mb-12">
-              <h1 className="text-5xl md:text-6xl font-bold font-display mb-6 text-[#5C2B09] leading-tight">
+              <h1 className="text-5xl md:text-6xl font-serif font-normal mb-6 text-[#4A3B32] leading-tight">
                 Design with <br/>
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-orange-500 to-yellow-500">
-                  Festive Joy
+                <span className="italic text-[#C19B76]">
+                  Delicate Precision
                 </span>
               </h1>
-              <p className="text-orange-900/60 text-xl font-medium leading-relaxed">
-                Describe your vibrant celebration. Our AI will weave the perfect colors and motifs for you.
+              <p className="text-[#4A3B32]/60 text-xl font-light leading-relaxed">
+                Describe your sophisticated event. Our AI will curate an invitation defined by clean lines and subtle luxury.
               </p>
             </div>
 
-            {/* Festive Mode Switcher */}
-            <div className="bg-white/80 backdrop-blur-md border border-orange-100 rounded-2xl p-1.5 mb-10 flex shadow-sm">
+            {/* Elegant Mode Switcher */}
+            <div className="bg-white/60 backdrop-blur-md border border-[#EAE0D5] rounded-xl p-1.5 mb-10 flex shadow-sm">
               <button 
-                className={`flex-1 py-3.5 rounded-xl text-sm font-bold tracking-wide flex items-center justify-center gap-2 transition-all duration-300 ${mode === 'ai' ? 'bg-orange-100 text-orange-700 shadow-sm border border-orange-200/50' : 'text-orange-900/40 hover:text-orange-600'}`}
+                className={`flex-1 py-3.5 rounded-lg text-sm font-semibold tracking-wide flex items-center justify-center gap-2 transition-all duration-300 ${mode === 'ai' ? 'bg-white text-[#4A3B32] shadow-sm border border-[#EAE0D5]' : 'text-[#4A3B32]/40 hover:text-[#4A3B32]'}`}
                 onClick={() => setMode('ai')}
               >
-                <Wand2 className="w-4 h-4" /> AI Generator
+                <Wand2 className="w-4 h-4 text-[#C19B76]" /> AI Generator
               </button>
               <button 
-                className={`flex-1 py-3.5 rounded-xl text-sm font-bold tracking-wide flex items-center justify-center gap-2 transition-all duration-300 ${mode === 'manual' ? 'bg-orange-100 text-orange-700 shadow-sm border border-orange-200/50' : 'text-orange-900/40 hover:text-orange-600'}`}
+                className={`flex-1 py-3.5 rounded-lg text-sm font-semibold tracking-wide flex items-center justify-center gap-2 transition-all duration-300 ${mode === 'manual' ? 'bg-white text-[#4A3B32] shadow-sm border border-[#EAE0D5]' : 'text-[#4A3B32]/40 hover:text-[#4A3B32]'}`}
                 onClick={() => setMode('manual')}
               >
                 <PenTool className="w-4 h-4" /> Manual Entry
@@ -218,38 +194,37 @@ export default function InvitationMaker() {
               {mode === 'ai' ? (
                 <motion.div
                   key="ai"
-                  initial={{ opacity: 0, scale: 0.98 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0, scale: 0.98 }}
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -10 }}
                   transition={{ duration: 0.4 }}
                   className="space-y-8"
                 >
                   <div className="relative group">
-                    <div className="absolute -inset-2 bg-gradient-to-r from-orange-300 to-yellow-300 rounded-[2rem] blur-xl opacity-0 group-focus-within:opacity-40 transition duration-700"></div>
-                    
-                    <div className="relative bg-white/90 backdrop-blur-xl border-2 border-orange-100 group-focus-within:border-orange-300 rounded-[2rem] shadow-xl transition duration-500 overflow-hidden">
-                      <div className="px-6 py-4 border-b border-orange-50 bg-orange-50/50 flex items-center justify-between">
-                        <Label htmlFor="prompt" className="text-xs uppercase tracking-widest text-orange-600 font-bold flex items-center gap-2">
-                          <Sparkles className="w-4 h-4 text-yellow-500" /> Event Details
+                    <div className="relative bg-white border border-[#EAE0D5] group-focus-within:border-[#C19B76] rounded-xl shadow-sm transition duration-300 overflow-hidden">
+                      <div className="px-6 py-4 border-b border-[#EAE0D5]/50 flex items-center justify-between bg-[#FDFBF7]/50">
+                        <Label htmlFor="prompt" className="text-[10px] uppercase tracking-widest text-[#C19B76] font-bold flex items-center gap-2">
+                          <Sparkles className="w-3.5 h-3.5" /> Event Vision
                         </Label>
+                        <Zap className="w-3.5 h-3.5 text-[#4A3B32]/20" />
                       </div>
                       <Textarea 
                         id="prompt"
                         value={prompt}
                         onChange={(e) => setPrompt(e.target.value)}
-                        placeholder="e.g. Create a bright, sunny Haldi invitation for Priya. We want lots of marigolds, warm yellow tones, and a very festive energy..."
-                        className="min-h-[240px] text-xl md:text-2xl font-medium bg-transparent border-0 focus-visible:ring-0 text-[#5C2B09] p-8 resize-none placeholder:text-orange-900/20 leading-relaxed"
+                        placeholder="e.g. Create a highly minimal ivory invitation for Sarah. Focus on clean serif typography and very subtle botanical accents..."
+                        className="min-h-[220px] text-lg font-light bg-transparent border-0 focus-visible:ring-0 text-[#4A3B32] p-6 resize-none placeholder:text-[#4A3B32]/30 leading-relaxed"
                       />
                     </div>
                   </div>
 
                   {/* Suggestion Chips */}
-                  <div className="flex flex-wrap gap-3">
+                  <div className="flex flex-wrap gap-2">
                     {SUGGESTIONS.map((suggestion, i) => (
                       <button
                         key={i}
                         onClick={() => setPrompt(suggestion)}
-                        className="text-xs font-bold text-orange-800/70 bg-white hover:bg-orange-100 hover:text-orange-700 border border-orange-100 px-5 py-3 rounded-full transition-all duration-300 text-left max-w-full truncate shadow-sm hover:shadow-md"
+                        className="text-xs font-medium text-[#4A3B32]/60 bg-white hover:bg-[#F2EBE1] hover:text-[#4A3B32] border border-[#EAE0D5] px-4 py-2.5 rounded-full transition-all duration-300 text-left max-w-full truncate shadow-sm"
                       >
                         {suggestion}
                       </button>
@@ -261,17 +236,15 @@ export default function InvitationMaker() {
                       size="lg" 
                       onClick={handleGenerate}
                       disabled={isGenerating || !prompt}
-                      className="w-full h-16 rounded-2xl text-lg font-bold bg-gradient-to-r from-orange-500 to-amber-500 hover:from-orange-600 hover:to-amber-600 text-white shadow-[0_8px_20px_rgba(249,115,22,0.25)] hover:shadow-[0_12px_25px_rgba(249,115,22,0.35)] hover:-translate-y-1 transition-all duration-300 border-0 group overflow-hidden relative"
+                      className="w-full h-14 rounded-xl text-sm font-semibold tracking-widest uppercase bg-[#4A3B32] hover:bg-[#382b24] text-[#FDFBF7] shadow-lg hover:shadow-xl hover:-translate-y-0.5 transition-all duration-300 border-0"
                     >
-                      <div className="absolute inset-0 -translate-x-full group-hover:animate-[shimmer_1.5s_infinite] bg-gradient-to-r from-transparent via-white/30 to-transparent z-10" />
-                      
                       {isGenerating ? (
-                        <span className="flex items-center gap-3 relative z-20">
-                          <Sparkles className="w-5 h-5 animate-spin" /> Gathering Marigolds...
+                        <span className="flex items-center gap-3">
+                          <Sparkles className="w-4 h-4 animate-spin text-[#C19B76]" /> Curating Design...
                         </span>
                       ) : (
-                        <span className="flex items-center gap-3 relative z-20">
-                          Design Invitation <ArrowRight className="w-5 h-5 group-hover:translate-x-2 transition-transform duration-300" />
+                        <span className="flex items-center gap-3">
+                          Generate Invitation <ArrowRight className="w-4 h-4 text-[#C19B76]" />
                         </span>
                       )}
                     </Button>
@@ -280,58 +253,58 @@ export default function InvitationMaker() {
               ) : (
                 <motion.div
                   key="manual"
-                  initial={{ opacity: 0, scale: 0.98 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0, scale: 0.98 }}
-                  className="bg-white/90 backdrop-blur-xl border-2 border-orange-100 rounded-[2rem] p-10 space-y-8 shadow-xl"
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -10 }}
+                  className="bg-white border border-[#EAE0D5] rounded-xl p-8 space-y-8 shadow-sm"
                 >
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                     <div className="space-y-2">
-                      <Label className="text-orange-900/50 font-bold tracking-widest uppercase text-[10px]">Event Title / Hosts *</Label>
-                      <Input value={manualTitle} onChange={e => setManualTitle(e.target.value)} className="bg-orange-50/50 border-orange-100 focus:border-orange-400 text-[#5C2B09] font-bold h-14 rounded-xl px-4 shadow-sm" placeholder="e.g. Priya's Haldi" />
+                      <Label className="text-[#4A3B32]/50 font-bold tracking-widest uppercase text-[9px]">Event Title / Hosts *</Label>
+                      <Input value={manualTitle} onChange={e => setManualTitle(e.target.value)} className="bg-[#FDFBF7] border-[#EAE0D5] focus:border-[#C19B76] text-[#4A3B32] h-12 rounded-lg px-4 shadow-sm" placeholder="e.g. Sarah & James" />
                     </div>
                     <div className="space-y-2">
-                      <Label className="text-orange-900/50 font-bold tracking-widest uppercase text-[10px]">Subtitle (Optional)</Label>
-                      <Input value={manualSubtitle} onChange={e => setManualSubtitle(e.target.value)} className="bg-orange-50/50 border-orange-100 focus:border-orange-400 text-[#5C2B09] font-bold h-14 rounded-xl px-4 shadow-sm" placeholder="e.g. Let the fun begin" />
+                      <Label className="text-[#4A3B32]/50 font-bold tracking-widest uppercase text-[9px]">Subtitle (Optional)</Label>
+                      <Input value={manualSubtitle} onChange={e => setManualSubtitle(e.target.value)} className="bg-[#FDFBF7] border-[#EAE0D5] focus:border-[#C19B76] text-[#4A3B32] h-12 rounded-lg px-4 shadow-sm" placeholder="e.g. Request your presence" />
                     </div>
                     <div className="space-y-2">
-                      <Label className="text-orange-900/50 font-bold tracking-widest uppercase text-[10px]">Date & Time *</Label>
-                      <Input value={manualDate} onChange={e => setManualDate(e.target.value)} className="bg-orange-50/50 border-orange-100 focus:border-orange-400 text-[#5C2B09] font-bold h-14 rounded-xl px-4 shadow-sm" placeholder="e.g. October 14, 2026" />
+                      <Label className="text-[#4A3B32]/50 font-bold tracking-widest uppercase text-[9px]">Date & Time *</Label>
+                      <Input value={manualDate} onChange={e => setManualDate(e.target.value)} className="bg-[#FDFBF7] border-[#EAE0D5] focus:border-[#C19B76] text-[#4A3B32] h-12 rounded-lg px-4 shadow-sm" placeholder="e.g. October 15, 2026" />
                     </div>
                     <div className="space-y-2">
-                      <Label className="text-orange-900/50 font-bold tracking-widest uppercase text-[10px]">Venue / Location *</Label>
-                      <Input value={manualVenue} onChange={e => setManualVenue(e.target.value)} className="bg-orange-50/50 border-orange-100 focus:border-orange-400 text-[#5C2B09] font-bold h-14 rounded-xl px-4 shadow-sm" placeholder="e.g. The Courtyard" />
+                      <Label className="text-[#4A3B32]/50 font-bold tracking-widest uppercase text-[9px]">Venue / Location *</Label>
+                      <Input value={manualVenue} onChange={e => setManualVenue(e.target.value)} className="bg-[#FDFBF7] border-[#EAE0D5] focus:border-[#C19B76] text-[#4A3B32] h-12 rounded-lg px-4 shadow-sm" placeholder="e.g. The Botanical Gardens" />
                     </div>
                     <div className="space-y-2 md:col-span-2">
-                      <Label className="text-orange-900/50 font-bold tracking-widest uppercase text-[10px]">Theme</Label>
+                      <Label className="text-[#4A3B32]/50 font-bold tracking-widest uppercase text-[9px]">Theme</Label>
                       <select 
                         value={manualTheme}
                         onChange={(e) => setManualTheme(e.target.value)}
-                        className="w-full bg-orange-50/50 border border-orange-100 focus:border-orange-400 text-[#5C2B09] font-bold h-14 rounded-xl px-4 shadow-sm outline-none"
+                        className="w-full bg-[#FDFBF7] border border-[#EAE0D5] focus:border-[#C19B76] text-[#4A3B32] h-12 rounded-lg px-4 shadow-sm outline-none"
                       >
-                        <optgroup label="Festive & Joyful Designs">
-                          <option value="haldi_marigold">Traditional Haldi</option>
-                          <option value="watercolor_florals">Watercolor Florals</option>
-                          <option value="rose_gold_brush">Rose Gold Brushstrokes</option>
-                          <option value="tropical_palm">Tropical Palm</option>
-                          <option value="boho_pampas">Boho Pampas Grass</option>
-                          <option value="lotus_pond">Lotus Pond</option>
+                        <optgroup label="Minimal & Clean Designs">
+                          <option value="minimalist_botanical">Minimalist Botanical</option>
+                          <option value="modern_clean">Modern Clean</option>
+                          <option value="pearl_ribbon">Pearl & Ribbon</option>
+                          <option value="geometric_marble">Geometric Marble</option>
                         </optgroup>
                         <optgroup label="Other Premium Designs">
                           <option value="royal_rajput">Royal Rajput Archway</option>
                           <option value="golden_mandala">Golden Mandala</option>
+                          <option value="watercolor_florals">Watercolor Florals</option>
                           <option value="emerald_foil">Emerald & Gold Foil</option>
+                          <option value="tropical_palm">Tropical Palm</option>
                           <option value="classic_damask">Classic Damask</option>
                           <option value="peacock_majesty">Peacock Majesty</option>
                           <option value="vintage_lace">Vintage Lace</option>
                           <option value="art_deco">Art Deco Gatsby</option>
                           <option value="celestial">Celestial Night</option>
-                          <option value="minimalist_botanical">Minimalist Botanical</option>
+                          <option value="rose_gold_brush">Rose Gold Brushstrokes</option>
+                          <option value="haldi_marigold">Traditional Haldi</option>
                           <option value="gothic_romance">Gothic Romance</option>
                           <option value="rustic_wood">Rustic Wood & Lights</option>
-                          <option value="modern_clean">Modern Clean</option>
-                          <option value="pearl_ribbon">Pearl & Ribbon</option>
-                          <option value="geometric_marble">Geometric Marble</option>
+                          <option value="boho_pampas">Boho Pampas Grass</option>
+                          <option value="lotus_pond">Lotus Pond</option>
                         </optgroup>
                       </select>
                     </div>
@@ -340,9 +313,9 @@ export default function InvitationMaker() {
                     <Button 
                       size="lg" 
                       onClick={handleManualSubmit}
-                      className="w-full h-14 rounded-xl font-bold bg-orange-600 hover:bg-orange-700 text-white shadow-[0_6px_15px_rgba(234,88,12,0.2)] hover:shadow-[0_8px_20px_rgba(234,88,12,0.3)] hover:-translate-y-1 transition-all duration-300"
+                      className="w-full h-14 rounded-xl text-sm font-semibold tracking-widest uppercase bg-[#4A3B32] hover:bg-[#382b24] text-[#FDFBF7] shadow-md hover:shadow-lg transition-all duration-300"
                     >
-                      Continue to Design <ArrowRight className="ml-2 w-5 h-5 text-orange-200" />
+                      Continue to Design <ArrowRight className="ml-2 w-4 h-4 text-[#C19B76]" />
                     </Button>
                   </div>
                 </motion.div>
@@ -353,43 +326,28 @@ export default function InvitationMaker() {
 
       </main>
 
-      {/* Joyful Loading Overlay */}
+      {/* Minimalist Loading Overlay */}
       <AnimatePresence>
         {isGenerating && (
           <motion.div 
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[100] bg-[#FFFBF0]/95 backdrop-blur-2xl flex flex-col items-center justify-center"
+            className="fixed inset-0 z-[100] bg-[#FDFBF7]/98 backdrop-blur-sm flex flex-col items-center justify-center"
           >
-            {/* Soft Glowing Sun */}
-            <motion.div
-              animate={{ 
-                scale: [1, 1.1, 1],
-                opacity: [0.5, 0.8, 0.5],
-              }}
-              transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-              className="absolute w-96 h-96 bg-gradient-to-tr from-orange-400 to-yellow-300 rounded-full blur-[100px]"
-            />
-            
             <div className="relative z-10 flex flex-col items-center">
               <motion.div
                 animate={{ rotate: 360 }}
-                transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
-                className="w-24 h-24 border-4 border-orange-100 border-t-orange-500 border-r-yellow-400 rounded-full mb-8 shadow-xl"
+                transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
+                className="w-16 h-16 border-2 border-[#EAE0D5] border-t-[#C19B76] rounded-full mb-8"
               />
-              <h2 className="text-4xl font-bold text-[#5C2B09] mb-3 font-display">Blooming Joy...</h2>
-              <p className="text-orange-600 font-bold tracking-widest uppercase text-sm">Weaving marigolds & magic</p>
+              <h2 className="text-2xl font-serif text-[#4A3B32] mb-3 tracking-wide">Refining Details...</h2>
+              <p className="text-[#4A3B32]/40 font-bold tracking-widest uppercase text-[10px]">Curating minimalist vectors</p>
             </div>
           </motion.div>
         )}
       </AnimatePresence>
 
-      <style dangerouslySetInnerHTML={{__html: `
-        @keyframes shimmer {
-          100% { transform: translateX(100%); }
-        }
-      `}} />
     </div>
   );
 }

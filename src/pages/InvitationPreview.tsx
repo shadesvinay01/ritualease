@@ -7,49 +7,29 @@ import { InvitationCard } from "@/components/ritual/InvitationCard";
 import { toPng } from "html-to-image";
 import jsPDF from "jspdf";
 
-// Falling Marigold Petals
-const FallingPetals = () => {
+// Minimalist Henna Overlay
+const MinimalistHennaOverlay = () => {
   return (
-    <div className="absolute inset-0 overflow-hidden pointer-events-none">
-      {[...Array(25)].map((_, i) => {
-        // Randomize petal colors between deep orange and bright yellow
-        const colors = ["bg-orange-500", "bg-yellow-400", "bg-amber-500"];
-        const color = colors[Math.floor(Math.random() * colors.length)];
-        return (
-          <motion.div
-            key={i}
-            className={`absolute w-3 h-4 rounded-t-full rounded-br-full ${color} opacity-60`}
-            style={{ filter: "blur(1px)" }}
-            initial={{
-              x: Math.random() * window.innerWidth,
-              y: Math.random() * -window.innerHeight - 100,
-              rotate: Math.random() * 360,
-              scale: Math.random() * 0.8 + 0.4,
-            }}
-            animate={{
-              y: window.innerHeight + 100,
-              x: `+=${Math.random() * 200 - 100}`,
-              rotate: `+=${Math.random() * 360 + 180}`,
-            }}
-            transition={{
-              duration: Math.random() * 10 + 10,
-              repeat: Infinity,
-              ease: "linear",
-            }}
-          />
-        );
-      })}
+    <div className="absolute inset-0 pointer-events-none opacity-[0.03]">
+      <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <pattern id="mehndi" x="0" y="0" width="120" height="120" patternUnits="userSpaceOnUse">
+            <path d="M60 0c33.137 0 60 26.863 60 60s-26.863 60-60 60S0 93.137 0 60 26.863 0 60 0zm0 4c-30.928 0-56 25.072-56 56s25.072 56 56 56 56-25.072 56-56S90.928 4 60 4zm0 28c15.464 0 28 12.536 28 28s-12.536 28-28 28-28-12.536-28-28 12.536-28 28-28zm0 4c-13.255 0-24 10.745-24 24s10.745 24 24 24 24-10.745 24-24-10.745-24-24-24z" fill="#4A3B32" fillRule="evenodd"/>
+          </pattern>
+        </defs>
+        <rect width="100%" height="100%" fill="url(#mehndi)" />
+      </svg>
     </div>
   );
 };
 
 export default function InvitationPreview() {
-  const [theme, setTheme] = useState("haldi_marigold");
+  const [theme, setTheme] = useState("minimalist_botanical");
   const [eventData, setEventData] = useState<any>({
-    title: "Priya's Haldi",
-    subtitle: "Let the celebrations begin",
-    date: "October 14, 2026",
-    venue: "The Courtyard"
+    title: "Sarah & James",
+    subtitle: "Request the pleasure of your company",
+    date: "October 15, 2026",
+    venue: "The Botanical Gardens"
   });
   const [isDownloading, setIsDownloading] = useState(false);
   const cardRef = useRef<HTMLDivElement>(null);
@@ -107,33 +87,32 @@ export default function InvitationPreview() {
   };
 
   return (
-    <div className="min-h-screen bg-[#FFFBF0] text-[#5C2B09] flex flex-col relative overflow-hidden font-sans selection:bg-orange-300/50">
+    <div className="min-h-screen bg-[#FDFBF7] text-[#4A3B32] flex flex-col relative overflow-hidden font-sans selection:bg-[#EAE0D5]/50">
       
-      {/* Festive Ambient Background Gradients */}
-      <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-orange-300/30 rounded-full blur-[150px] pointer-events-none" />
-      <div className="absolute bottom-0 left-0 w-[800px] h-[800px] bg-yellow-300/30 rounded-full blur-[150px] pointer-events-none" />
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-rose-200/20 rounded-full blur-[120px] pointer-events-none" />
+      {/* Subtle Ambient Background Gradients */}
+      <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-[#F2EBE1]/60 rounded-full blur-[120px] pointer-events-none" />
+      <div className="absolute bottom-0 left-0 w-[800px] h-[800px] bg-[#EAE0D5]/40 rounded-full blur-[120px] pointer-events-none" />
 
-      <FallingPetals />
+      <MinimalistHennaOverlay />
 
-      {/* Warm & Festive Toolbar */}
-      <header className="fixed top-0 w-full z-50 px-8 py-5 flex items-center justify-between border-b border-orange-200/50 bg-[#FFFBF0]/80 backdrop-blur-3xl shadow-sm">
+      {/* Elegant Minimalist Toolbar */}
+      <header className="fixed top-0 w-full z-50 px-8 py-5 flex items-center justify-between border-b border-[#EAE0D5] bg-[#FDFBF7]/90 backdrop-blur-xl shadow-sm">
         <div className="flex items-center gap-8">
-          <Link to="/invitation-maker" className="flex items-center gap-2 text-orange-800/60 hover:text-orange-600 transition-colors font-medium text-sm bg-orange-100/50 hover:bg-orange-200/60 px-5 py-2.5 rounded-full border border-orange-200">
+          <Link to="/invitation-maker" className="flex items-center gap-2 text-[#4A3B32]/60 hover:text-[#4A3B32] transition-colors font-medium text-sm bg-white hover:bg-[#F2EBE1] px-5 py-2.5 rounded-full border border-[#EAE0D5]">
             <ArrowLeft className="w-4 h-4" /> Back to Edit
           </Link>
-          <div className="hidden md:flex items-center gap-2 text-lg font-bold tracking-wide text-orange-600">
-            <Sparkles className="w-5 h-5 text-yellow-500" /> RitualEase Magic
+          <div className="hidden md:flex items-center gap-2 text-sm font-semibold tracking-widest text-[#4A3B32]/80 uppercase">
+            <Sparkles className="w-4 h-4 text-[#C19B76]" /> RitualEase Elegance
           </div>
         </div>
         
-        {/* Festive Progress Indicator */}
+        {/* Minimal Progress Indicator */}
         <div className="flex items-center gap-4">
-          <span className="text-xs font-bold uppercase tracking-widest text-orange-800/40">Step 2 of 3</span>
+          <span className="text-xs font-bold uppercase tracking-widest text-[#4A3B32]/40">Step 2 of 3</span>
           <div className="flex items-center gap-2">
-            <div className="w-3 h-2 rounded-full bg-green-500 shadow-[0_0_10px_rgba(34,197,94,0.3)]"></div>
-            <div className="w-10 h-2 rounded-full bg-gradient-to-r from-orange-400 to-yellow-400 shadow-[0_0_10px_rgba(249,115,22,0.3)]"></div>
-            <div className="w-3 h-2 rounded-full bg-orange-200"></div>
+            <div className="w-3 h-1 rounded-full bg-green-600/60"></div>
+            <div className="w-10 h-1 rounded-full bg-[#C19B76]"></div>
+            <div className="w-3 h-1 rounded-full bg-[#EAE0D5]"></div>
           </div>
         </div>
       </header>
@@ -144,55 +123,52 @@ export default function InvitationPreview() {
         {/* Canvas Area (Left) */}
         <div className="flex-1 flex flex-col items-center">
           <div className="w-full flex flex-col sm:flex-row items-center justify-between mb-8 gap-4 px-4">
-            <h2 className="text-3xl font-bold flex items-center gap-3 text-[#5C2B09] font-display">
-              <Sparkles className="w-6 h-6 text-orange-500" /> Your Masterpiece
+            <h2 className="text-2xl font-serif text-[#4A3B32] tracking-wide flex items-center gap-3">
+              Your Masterpiece
             </h2>
             
-            <div className="flex items-center gap-3 bg-white/80 backdrop-blur-3xl border border-orange-100 rounded-full px-5 py-2.5 shadow-sm">
-              <Palette className="w-4 h-4 text-orange-500" />
+            <div className="flex items-center gap-3 bg-white border border-[#EAE0D5] rounded-lg px-4 py-2 shadow-sm">
+              <Palette className="w-4 h-4 text-[#C19B76]" />
               <select 
                 value={theme}
                 onChange={(e) => setTheme(e.target.value)}
-                className="bg-transparent text-sm font-bold focus:outline-none text-orange-900 cursor-pointer"
+                className="bg-transparent text-sm font-medium focus:outline-none text-[#4A3B32] cursor-pointer"
               >
-                <optgroup label="Festive & Joyful Designs" className="bg-[#FFFBF0]">
-                  <option value="haldi_marigold">Traditional Haldi</option>
-                  <option value="watercolor_florals">Watercolor Florals</option>
-                  <option value="rose_gold_brush">Rose Gold Brushstrokes</option>
-                  <option value="tropical_palm">Tropical Palm</option>
-                  <option value="boho_pampas">Boho Pampas Grass</option>
-                  <option value="lotus_pond">Lotus Pond</option>
+                <optgroup label="Minimal & Clean Designs" className="bg-white">
+                  <option value="minimalist_botanical">Minimalist Botanical</option>
+                  <option value="modern_clean">Modern Clean</option>
+                  <option value="pearl_ribbon">Pearl & Ribbon</option>
+                  <option value="geometric_marble">Geometric Marble</option>
                 </optgroup>
-                <optgroup label="Other Premium Designs" className="bg-[#FFFBF0]">
+                <optgroup label="Other Premium Designs" className="bg-white">
                   <option value="royal_rajput">Royal Rajput Archway</option>
                   <option value="golden_mandala">Golden Mandala</option>
+                  <option value="watercolor_florals">Watercolor Florals</option>
                   <option value="emerald_foil">Emerald & Gold Foil</option>
+                  <option value="tropical_palm">Tropical Palm</option>
                   <option value="classic_damask">Classic Damask</option>
                   <option value="peacock_majesty">Peacock Majesty</option>
                   <option value="vintage_lace">Vintage Lace</option>
                   <option value="art_deco">Art Deco Gatsby</option>
                   <option value="celestial">Celestial Night</option>
-                  <option value="minimalist_botanical">Minimalist Botanical</option>
+                  <option value="rose_gold_brush">Rose Gold Brushstrokes</option>
+                  <option value="haldi_marigold">Traditional Haldi</option>
                   <option value="gothic_romance">Gothic Romance</option>
                   <option value="rustic_wood">Rustic Wood & Lights</option>
-                  <option value="modern_clean">Modern Clean</option>
-                  <option value="pearl_ribbon">Pearl & Ribbon</option>
-                  <option value="geometric_marble">Geometric Marble</option>
+                  <option value="boho_pampas">Boho Pampas Grass</option>
+                  <option value="lotus_pond">Lotus Pond</option>
                 </optgroup>
               </select>
             </div>
           </div>
 
           <motion.div 
-            initial={{ scale: 0.95, opacity: 0, y: 30 }}
-            animate={{ scale: 1, opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, type: "spring", bounce: 0.4 }}
-            className="w-full max-w-lg aspect-[3/4] relative group rounded-3xl"
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, ease: "easeOut" }}
+            className="w-full max-w-lg aspect-[3/4] relative group"
           >
-            {/* Festive Glow Behind Card */}
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[120%] bg-gradient-to-tr from-orange-400/20 to-yellow-300/20 blur-[60px] rounded-full z-0 pointer-events-none" />
-
-            <div className="absolute inset-0 shadow-[0_30px_60px_rgba(234,88,12,0.15)] border-8 border-white rounded-3xl overflow-hidden z-10" ref={cardRef}>
+            <div className="absolute inset-0 shadow-[0_20px_50px_rgba(74,59,50,0.06)] border border-[#EAE0D5] bg-white rounded-md overflow-hidden z-10" ref={cardRef}>
               <InvitationCard 
                 themeId={theme}
                 title={eventData.title}
@@ -205,70 +181,70 @@ export default function InvitationPreview() {
         </div>
 
         {/* Tools Area (Right) */}
-        <div className="w-full lg:w-[400px] flex flex-col gap-8 pt-10 lg:pt-0">
+        <div className="w-full lg:w-[400px] flex flex-col gap-6 pt-10 lg:pt-0">
           
           <motion.div 
-            initial={{ opacity: 0, x: 20 }}
+            initial={{ opacity: 0, x: 10 }}
             animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            className="bg-white/90 backdrop-blur-3xl border border-orange-100 rounded-[2rem] p-8 shadow-xl relative overflow-hidden"
+            transition={{ duration: 0.6, delay: 0.1 }}
+            className="bg-white border border-[#EAE0D5] rounded-xl p-8 shadow-sm"
           >
-            <h3 className="text-xl font-bold text-[#5C2B09] mb-6 flex items-center gap-3">
-              <Download className="w-5 h-5 text-orange-500" /> Export Assets
+            <h3 className="text-lg font-serif text-[#4A3B32] mb-5 flex items-center gap-3">
+              Export Assets
             </h3>
             <div className="grid grid-cols-2 gap-4">
               <Button 
                 onClick={handlePDFDownload}
                 disabled={isDownloading}
                 variant="outline"
-                className="w-full h-auto flex flex-col py-8 rounded-2xl border-orange-200 bg-orange-50/50 hover:bg-orange-100 hover:border-orange-400 text-orange-900 transition-all duration-300 shadow-sm"
+                className="w-full h-auto flex flex-col py-6 rounded-lg border-[#EAE0D5] bg-[#FDFBF7] hover:bg-[#F2EBE1] hover:border-[#C19B76] text-[#4A3B32] transition-all duration-300"
               >
-                <span className="font-bold text-lg">{isDownloading ? '...' : 'PDF'}</span>
-                <span className="text-[10px] text-orange-600 mt-1 uppercase tracking-widest font-bold">Print Ready</span>
+                <span className="font-semibold text-base">{isDownloading ? '...' : 'PDF'}</span>
+                <span className="text-[9px] text-[#4A3B32]/50 mt-1 uppercase tracking-widest font-bold">Print Ready</span>
               </Button>
               <Button 
                 onClick={handleDownload} 
                 disabled={isDownloading}
                 variant="outline"
-                className="w-full h-auto flex flex-col py-8 rounded-2xl border-orange-200 bg-orange-50/50 hover:bg-orange-100 hover:border-orange-400 text-orange-900 transition-all duration-300 shadow-sm"
+                className="w-full h-auto flex flex-col py-6 rounded-lg border-[#EAE0D5] bg-[#FDFBF7] hover:bg-[#F2EBE1] hover:border-[#C19B76] text-[#4A3B32] transition-all duration-300"
               >
-                <span className="font-bold text-lg">{isDownloading ? '...' : 'PNG'}</span>
-                <span className="text-[10px] text-orange-600 mt-1 uppercase tracking-widest font-bold">High Res</span>
+                <span className="font-semibold text-base">{isDownloading ? '...' : 'PNG'}</span>
+                <span className="text-[9px] text-[#4A3B32]/50 mt-1 uppercase tracking-widest font-bold">High Res</span>
               </Button>
             </div>
-            <Button variant="outline" className="w-full mt-4 h-14 rounded-xl border-orange-200 bg-transparent hover:bg-orange-50 text-orange-700 hover:text-orange-900 transition-all">
-              <Video className="w-4 h-4 mr-2 text-orange-500" /> Generate Video Invite
+            <Button variant="outline" className="w-full mt-4 h-12 rounded-lg border-[#EAE0D5] bg-transparent hover:bg-[#F2EBE1] text-[#4A3B32]/70 hover:text-[#4A3B32] transition-all">
+              <Video className="w-4 h-4 mr-2 text-[#C19B76]" /> Generate Video Invite
             </Button>
           </motion.div>
 
           <motion.div 
-            initial={{ opacity: 0, x: 20 }}
+            initial={{ opacity: 0, x: 10 }}
             animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8, delay: 0.3 }}
-            className="bg-white/90 backdrop-blur-3xl border border-orange-100 rounded-[2rem] p-8 shadow-xl"
+            transition={{ duration: 0.6, delay: 0.2 }}
+            className="bg-white border border-[#EAE0D5] rounded-xl p-8 shadow-sm"
           >
-            <h3 className="text-xl font-bold text-[#5C2B09] mb-6 flex items-center gap-3">
-              <Share2 className="w-5 h-5 text-orange-500" /> Share & RSVP
+            <h3 className="text-lg font-serif text-[#4A3B32] mb-5 flex items-center gap-3">
+              Share & RSVP
             </h3>
             <div className="space-y-4">
               <Button 
                 onClick={handleWhatsAppShare}
-                className="w-full justify-start bg-[#25D366]/10 text-[#128C7E] hover:bg-[#25D366]/20 border border-[#25D366]/30 h-14 rounded-xl text-base font-bold transition-all shadow-sm"
+                className="w-full justify-start bg-[#25D366]/5 text-[#128C7E] hover:bg-[#25D366]/10 border border-[#25D366]/20 h-12 rounded-lg text-sm font-semibold transition-all"
               >
                 Share on WhatsApp
               </Button>
-              <Button variant="outline" className="w-full justify-start h-14 rounded-xl border-orange-200 bg-transparent hover:bg-orange-50 text-orange-700 hover:text-orange-900 transition-all">
-                <QrCode className="w-4 h-4 mr-3" /> Get QR Code
+              <Button variant="outline" className="w-full justify-start h-12 rounded-lg border-[#EAE0D5] bg-transparent hover:bg-[#F2EBE1] text-[#4A3B32]/70 hover:text-[#4A3B32] transition-all">
+                <QrCode className="w-4 h-4 mr-3 text-[#C19B76]" /> Get QR Code
               </Button>
             </div>
           </motion.div>
           
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.4 }}
+            transition={{ duration: 0.6, delay: 0.3 }}
           >
-            <Button className="w-full text-lg font-bold uppercase tracking-wide rounded-2xl h-16 bg-orange-600 hover:bg-orange-700 text-white shadow-[0_8px_20px_rgba(234,88,12,0.25)] hover:shadow-[0_12px_25px_rgba(234,88,12,0.35)] hover:-translate-y-1 transition-all duration-300 border-0">
+            <Button className="w-full text-sm font-semibold uppercase tracking-widest rounded-xl h-14 bg-[#4A3B32] hover:bg-[#382b24] text-[#FDFBF7] shadow-md hover:shadow-lg transition-all duration-300 border-0">
               Publish & Manage RSVPs
             </Button>
           </motion.div>
