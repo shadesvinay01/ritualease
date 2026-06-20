@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from "react";
-import { Sparkles, Download, Share2, ArrowLeft, Palette, QrCode, Video, PenLine } from "lucide-react";
+import { Sparkles, Download, Share2, ArrowLeft, Palette, QrCode, Video, PenLine, Plus, ChevronLeft, ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
@@ -42,13 +42,14 @@ const FloatingGoldDust = () => {
 };
 
 export default function InvitationPreview() {
-  const [theme, setTheme] = useState("royal_rajput");
-  const [eventData, setEventData] = useState<any>({
+  const [events, setEvents] = useState<any[]>([{
     title: "Aarav & Priya",
     subtitle: "Joyfully invite you",
     date: "October 15, 2026",
-    venue: "The Palace Gardens"
-  });
+    venue: "The Palace Gardens",
+    theme_id: "royal_rajput"
+  }]);
+  const [currentIndex, setCurrentIndex] = useState(0);
   const [isDownloading, setIsDownloading] = useState(false);
   const cardRef = useRef<HTMLDivElement>(null);
 
@@ -56,22 +57,47 @@ export default function InvitationPreview() {
     const saved = localStorage.getItem('generatedEvent');
     if (saved) {
       const parsed = JSON.parse(saved);
-      if (parsed.theme_id) setTheme(parsed.theme_id);
-      setEventData(parsed);
+      if (Array.isArray(parsed)) {
+        setEvents(parsed);
+      } else {
+        setEvents([{ ...parsed, theme_id: parsed.theme_id || "royal_rajput" }]);
+      }
     }
   }, []);
 
   const handleUpdateEventData = (field: string, value: string) => {
-    const newData = { ...eventData, [field]: value };
-    setEventData(newData);
-    // Also update local storage so changes persist
-    localStorage.setItem('generatedEvent', JSON.stringify({ ...newData, theme_id: theme }));
+    const newEvents = [...events];
+    newEvents[currentIndex] = { ...newEvents[currentIndex], [field]: value };
+    setEvents(newEvents);
+    localStorage.setItem('generatedEvent', JSON.stringify(newEvents));
   };
 
   const handleThemeChange = (newTheme: string) => {
-    setTheme(newTheme);
-    localStorage.setItem('generatedEvent', JSON.stringify({ ...eventData, theme_id: newTheme }));
+    handleUpdateEventData('theme_id', newTheme);
   };
+
+  const handleAddEvent = () => {
+    const newEvents = [...events, {
+      title: events[0]?.title || "New Event",
+      subtitle: "Join us for",
+      date: "",
+      venue: "",
+      theme_id: events[currentIndex]?.theme_id || "royal_rajput"
+    }];
+    setEvents(newEvents);
+    setCurrentIndex(newEvents.length - 1);
+    localStorage.setItem('generatedEvent', JSON.stringify(newEvents));
+  };
+
+  const handleNextEvent = () => {
+    setCurrentIndex(prev => Math.min(prev + 1, events.length - 1));
+  };
+
+  const handlePrevEvent = () => {
+    setCurrentIndex(prev => Math.max(prev - 1, 0));
+  };
+
+  const currentEvent = events[currentIndex] || events[0];
 
   const handleDownload = async () => {
     if (!cardRef.current) return;
@@ -79,7 +105,7 @@ export default function InvitationPreview() {
     try {
       const dataUrl = await toPng(cardRef.current, { cacheBust: true, pixelRatio: 3 });
       const link = document.createElement('a');
-      link.download = `invitation-${eventData.title.replace(/\s+/g, '-')}.png`;
+      link.download = `invitation-${currentEvent.title.replace(/\s+/g, '-')}-part${currentIndex+1}.png`;
       link.href = dataUrl;
       link.click();
     } catch (err) {
@@ -101,7 +127,7 @@ export default function InvitationPreview() {
         format: [cardRef.current.offsetWidth, cardRef.current.offsetHeight]
       });
       pdf.addImage(dataUrl, 'PNG', 0, 0, cardRef.current.offsetWidth, cardRef.current.offsetHeight);
-      pdf.save(`invitation-${eventData.title.replace(/\s+/g, '-')}.pdf`);
+      pdf.save(`invitation-${currentEvent.title.replace(/\s+/g, '-')}-part${currentIndex+1}.pdf`);
     } catch (err) {
       console.error('Failed to download PDF', err);
       alert('Failed to generate PDF.');
@@ -111,7 +137,7 @@ export default function InvitationPreview() {
   };
 
   const handleWhatsAppShare = () => {
-    const message = `You're invited! 🎊\n\n*${eventData.title}*\n${eventData.subtitle}\n\n📅 ${eventData.date}\n📍 ${eventData.venue}\n\nWe can't wait to celebrate with you!`;
+    const message = `You're invited! 🎊\n\n*${currentEvent.title}*\n${currentEvent.subtitle}\n\n📅 ${currentEvent.date}\n📍 ${currentEvent.venue}\n\nWe can't wait to celebrate with you!`;
     const whatsappUrl = `https://wa.me/?text=${encodeURIComponent(message)}`;
     window.open(whatsappUrl, '_blank');
   };
@@ -167,7 +193,7 @@ export default function InvitationPreview() {
             <div className="flex items-center gap-3 bg-[#1A0500]/80 backdrop-blur-3xl border border-amber-500/20 rounded-full px-5 py-2.5 shadow-2xl">
               <Palette className="w-4 h-4 text-amber-400" />
               <select 
-                value={theme}
+                value={currentEvent.theme_id || "royal_rajput"}
                 onChange={(e) => handleThemeChange(e.target.value)}
                 className="bg-transparent text-sm font-sans font-medium focus:outline-none text-amber-50 cursor-pointer"
               >
@@ -210,14 +236,39 @@ export default function InvitationPreview() {
             <div className="absolute inset-0 shadow-[0_30px_80px_rgba(0,0,0,0.8)] border-4 border-[#3a0a00] rounded-xl overflow-hidden z-10" ref={cardRef}>
               <div className="absolute inset-0 border-2 border-amber-400/50 rounded-xl z-20 pointer-events-none"></div>
               <InvitationCard 
-                themeId={theme}
-                title={eventData.title}
-                subtitle={eventData.subtitle}
-                date={eventData.date}
-                venue={eventData.venue}
+                themeId={currentEvent.theme_id || "royal_rajput"}
+                title={currentEvent.title}
+                subtitle={currentEvent.subtitle}
+                date={currentEvent.date}
+                venue={currentEvent.venue}
               />
             </div>
           </motion.div>
+
+          {/* Storybook Pagination */}
+          <div className="flex items-center gap-4 mt-8">
+            <Button 
+              variant="outline" 
+              size="icon" 
+              onClick={handlePrevEvent} 
+              disabled={currentIndex === 0}
+              className="rounded-full bg-[#1A0500]/80 border-amber-500/30 text-amber-500 hover:bg-amber-900/40"
+            >
+              <ChevronLeft className="w-5 h-5" />
+            </Button>
+            <div className="text-amber-500/80 font-bold font-sans text-xs tracking-widest uppercase">
+              Event {currentIndex + 1} of {events.length}
+            </div>
+            <Button 
+              variant="outline" 
+              size="icon" 
+              onClick={handleNextEvent} 
+              disabled={currentIndex === events.length - 1}
+              className="rounded-full bg-[#1A0500]/80 border-amber-500/30 text-amber-500 hover:bg-amber-900/40"
+            >
+              <ChevronRight className="w-5 h-5" />
+            </Button>
+          </div>
         </div>
 
         {/* Tools Area (Right) */}
@@ -229,15 +280,20 @@ export default function InvitationPreview() {
             transition={{ duration: 0.8, delay: 0.1 }}
             className="bg-[#1A0500]/80 backdrop-blur-3xl border border-amber-500/20 rounded-2xl p-6 shadow-2xl relative overflow-hidden"
           >
-            <h3 className="text-xl font-serif tracking-widest text-amber-400 mb-4 flex items-center gap-3">
-              <PenLine className="w-5 h-5 text-amber-500" /> Customize Text
-            </h3>
+            <div className="flex items-center justify-between mb-4">
+              <h3 className="text-xl font-serif tracking-widest text-amber-400 flex items-center gap-3">
+                <PenLine className="w-5 h-5 text-amber-500" /> Customize Text
+              </h3>
+              <Button onClick={handleAddEvent} size="sm" variant="outline" className="bg-amber-500/10 border-amber-500/30 text-amber-400 hover:bg-amber-500/20 text-xs tracking-widest uppercase">
+                <Plus className="w-3 h-3 mr-1" /> Add Event
+              </Button>
+            </div>
             <div className="space-y-4">
               <div>
                 <label className="text-[10px] uppercase tracking-widest text-amber-500/60 font-bold mb-1 block">Names / Title</label>
                 <input 
                   type="text" 
-                  value={eventData.title} 
+                  value={currentEvent.title} 
                   onChange={(e) => handleUpdateEventData('title', e.target.value)}
                   className="w-full bg-black/20 border border-amber-500/20 rounded-xl px-4 py-2.5 text-amber-50 focus:outline-none focus:border-amber-400 font-serif text-lg"
                 />
@@ -246,7 +302,7 @@ export default function InvitationPreview() {
                 <label className="text-[10px] uppercase tracking-widest text-amber-500/60 font-bold mb-1 block">Subtitle</label>
                 <input 
                   type="text" 
-                  value={eventData.subtitle} 
+                  value={currentEvent.subtitle} 
                   onChange={(e) => handleUpdateEventData('subtitle', e.target.value)}
                   className="w-full bg-black/20 border border-amber-500/20 rounded-xl px-4 py-2.5 text-amber-50 focus:outline-none focus:border-amber-400 font-serif text-lg"
                 />
@@ -256,7 +312,7 @@ export default function InvitationPreview() {
                   <label className="text-[10px] uppercase tracking-widest text-amber-500/60 font-bold mb-1 block">Date</label>
                   <input 
                     type="text" 
-                    value={eventData.date} 
+                    value={currentEvent.date} 
                     onChange={(e) => handleUpdateEventData('date', e.target.value)}
                     className="w-full bg-black/20 border border-amber-500/20 rounded-xl px-4 py-2.5 text-amber-50 focus:outline-none focus:border-amber-400 font-serif text-sm"
                   />
@@ -265,7 +321,7 @@ export default function InvitationPreview() {
                   <label className="text-[10px] uppercase tracking-widest text-amber-500/60 font-bold mb-1 block">Venue</label>
                   <input 
                     type="text" 
-                    value={eventData.venue} 
+                    value={currentEvent.venue} 
                     onChange={(e) => handleUpdateEventData('venue', e.target.value)}
                     className="w-full bg-black/20 border border-amber-500/20 rounded-xl px-4 py-2.5 text-amber-50 focus:outline-none focus:border-amber-400 font-serif text-sm"
                   />
