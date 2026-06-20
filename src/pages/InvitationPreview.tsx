@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from "react";
-import { Sparkles, Download, Share2, ArrowLeft, Palette, QrCode, Video, PenLine, Plus, ChevronLeft, ChevronRight } from "lucide-react";
+import { Sparkles, Download, Share2, ArrowLeft, Palette, QrCode, Video, PenLine, Plus, ChevronLeft, ChevronRight, Music } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
@@ -50,6 +50,7 @@ export default function InvitationPreview() {
     theme_id: "royal_rajput"
   }]);
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [musicTrack, setMusicTrack] = useState("royal_shehnai");
   const [isDownloading, setIsDownloading] = useState(false);
   const cardRef = useRef<HTMLDivElement>(null);
 
@@ -63,6 +64,10 @@ export default function InvitationPreview() {
         setEvents([{ ...parsed, theme_id: parsed.theme_id || "royal_rajput" }]);
       }
     }
+    const savedMusic = localStorage.getItem('selectedMusic');
+    if (savedMusic) {
+      setMusicTrack(savedMusic);
+    }
   }, []);
 
   const handleUpdateEventData = (field: string, value: string) => {
@@ -74,6 +79,11 @@ export default function InvitationPreview() {
 
   const handleThemeChange = (newTheme: string) => {
     handleUpdateEventData('theme_id', newTheme);
+  };
+
+  const handleMusicChange = (newMusic: string) => {
+    setMusicTrack(newMusic);
+    localStorage.setItem('selectedMusic', newMusic);
   };
 
   const handleAddEvent = () => {
@@ -326,6 +336,27 @@ export default function InvitationPreview() {
                     className="w-full bg-black/20 border border-amber-500/20 rounded-xl px-4 py-2.5 text-amber-50 focus:outline-none focus:border-amber-400 font-serif text-sm"
                   />
                 </div>
+              </div>
+            </div>
+
+            {/* Background Music Selector */}
+            <div className="mt-6 pt-6 border-t border-amber-500/20">
+              <h3 className="text-sm font-bold tracking-widest text-amber-500/80 mb-3 uppercase flex items-center gap-2">
+                <Music className="w-4 h-4" /> Background Audio
+              </h3>
+              <select 
+                value={musicTrack}
+                onChange={(e) => handleMusicChange(e.target.value)}
+                className="w-full bg-black/20 border border-amber-500/20 rounded-xl px-4 py-3 text-amber-50 focus:outline-none focus:border-amber-400 font-sans text-sm cursor-pointer"
+              >
+                <option value="none">No Music</option>
+                <option value="royal_shehnai">Royal Shehnai Welcome</option>
+                <option value="sitar_lounge">Ambient Sitar Lounge</option>
+                <option value="festive_dhol">Festive Wedding Dhol</option>
+                <option value="soft_piano">Romantic Piano</option>
+              </select>
+              <div className="mt-2 text-[10px] text-amber-500/50 uppercase tracking-widest">
+                Plays automatically when guests open your link
               </div>
             </div>
           </motion.div>

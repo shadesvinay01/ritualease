@@ -18,6 +18,7 @@ import AdminDashboard from "./pages/AdminDashboard.tsx";
 import JoinUs from "./pages/JoinUs.tsx";
 import InvitationMaker from "./pages/InvitationMaker.tsx";
 import InvitationPreview from "./pages/InvitationPreview.tsx";
+import GuestView from "./pages/GuestView.tsx";
 import { WhatsAppFab } from "./components/ritual/WhatsAppFab";
 import { AuthProvider } from "./contexts/AuthContext";
 import { LocationPrompt } from "./components/location/LocationPrompt";
@@ -49,6 +50,7 @@ const App = () => (
             <Route path="/join-us" element={<JoinUs />} />
             <Route path="/invitation-maker" element={<InvitationMaker />} />
             <Route path="/invitation-preview" element={<InvitationPreview />} />
+            <Route path="/invite/:id?" element={<GuestView />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>

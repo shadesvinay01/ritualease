@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import { motion } from "framer-motion";
 
 const STYS: any = {
   royal_rajput: { l:'Royal Rajput Archway', bg:'#4a0e17', tC:'#fdfbf7', aC:'#d4a843', sC:'#d4a843', dk:true, cf:'"Playfair Display",serif', bf:'"Cormorant Garamond",serif' },
@@ -425,11 +426,23 @@ function getBgSVG(id: string, a: string, dk: boolean, W: number = 680, H: number
   return (P[id] || P.royal_rajput) + '';
 }
 
-export function InvitationCard({ themeId = "royal_rajput", title, subtitle, date, venue }: any) {
+export function InvitationCard({ themeId = "royal_rajput", title, subtitle, date, venue, isAnimated = false }: any) {
   const s = STYS[themeId] || STYS.royal_rajput;
   const a = s.aC;
   const bg = getBgSVG(themeId, a, s.dk);
   const cornerColor = s.dk ? a : a + '60';
+
+  const contentVariants = isAnimated ? {
+    hidden: { opacity: 0, y: 15 },
+    visible: (i: number) => ({
+      opacity: 1,
+      y: 0,
+      transition: { delay: i * 0.6 + 1.2, duration: 1.2, ease: [0.16, 1, 0.3, 1] }
+    })
+  } : {
+    hidden: { opacity: 1, y: 0 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0 } }
+  };
 
   return (
     <div 
@@ -456,36 +469,36 @@ export function InvitationCard({ themeId = "royal_rajput", title, subtitle, date
 
       {/* Content */}
       <div className="relative z-10 p-10 flex flex-col items-center justify-center h-full text-center transition-all duration-700">
-        <p className="text-[10px] sm:text-xs tracking-[0.4em] uppercase mb-4 drop-shadow-sm font-bold" style={{ color: a }}>{subtitle || "Together with their families"}</p>
+        <motion.p custom={0} initial="hidden" animate="visible" variants={contentVariants} className="text-[10px] sm:text-xs tracking-[0.4em] uppercase mb-4 drop-shadow-sm font-bold" style={{ color: a }}>{subtitle || "Together with their families"}</motion.p>
         
         {/* Divider */}
-        <div className="flex items-center justify-center gap-3 my-4 w-full">
+        <motion.div custom={1} initial="hidden" animate="visible" variants={contentVariants} className="flex items-center justify-center gap-3 my-4 w-full">
           <div className="h-[1px] flex-1 max-w-[60px]" style={{ background: `linear-gradient(90deg, transparent, ${a})` }} />
           <div className="w-1.5 h-1.5 rounded-full" style={{ background: a, boxShadow: `0 0 8px ${a}40` }} />
           <div className="h-[1px] flex-1 max-w-[60px]" style={{ background: `linear-gradient(90deg, ${a}, transparent)` }} />
-        </div>
+        </motion.div>
 
-        <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold mb-6 mt-4 leading-tight drop-shadow-lg" style={{ fontFamily: s.cf, color: s.tC }}>
+        <motion.h1 custom={2} initial="hidden" animate="visible" variants={contentVariants} className="text-4xl sm:text-5xl md:text-6xl font-bold mb-6 mt-4 leading-tight drop-shadow-lg" style={{ fontFamily: s.cf, color: s.tC }}>
           {title.split('&').map((part: string, i: number, arr: any[]) => (
             <React.Fragment key={i}>
               {part.trim()}
               {i < arr.length - 1 && <><br /><span style={{ fontSize: '0.6em', opacity: 0.8, color: a }}>&</span><br /></>}
             </React.Fragment>
           ))}
-        </h1>
+        </motion.h1>
 
-        <div className="flex items-center justify-center gap-3 my-4 w-full">
+        <motion.div custom={3} initial="hidden" animate="visible" variants={contentVariants} className="flex items-center justify-center gap-3 my-4 w-full">
           <div className="h-[1px] flex-1 max-w-[60px]" style={{ background: `linear-gradient(90deg, transparent, ${a})` }} />
           <div className="w-1.5 h-1.5 rounded-full" style={{ background: a, boxShadow: `0 0 8px ${a}40` }} />
           <div className="h-[1px] flex-1 max-w-[60px]" style={{ background: `linear-gradient(90deg, ${a}, transparent)` }} />
-        </div>
+        </motion.div>
 
-        <p className="text-[10px] sm:text-xs tracking-widest mt-4 mb-6 uppercase opacity-90 font-bold" style={{ color: s.sC }}>Invite you to celebrate</p>
+        <motion.p custom={4} initial="hidden" animate="visible" variants={contentVariants} className="text-[10px] sm:text-xs tracking-widest mt-4 mb-6 uppercase opacity-90 font-bold" style={{ color: s.sC }}>Invite you to celebrate</motion.p>
         
-        <div className="px-6 py-4 rounded-xl backdrop-blur-sm border border-transparent mt-2 inline-block transition-colors duration-700" style={{ backgroundColor: `${s.bg}40`, borderColor: `${a}20` }}>
+        <motion.div custom={5} initial="hidden" animate="visible" variants={contentVariants} className="px-6 py-4 rounded-xl backdrop-blur-sm border border-transparent mt-2 inline-block transition-colors duration-700" style={{ backgroundColor: `${s.bg}40`, borderColor: `${a}20` }}>
           <p className="text-base sm:text-lg font-bold mb-2" style={{ color: a }}>{date || "December 20th, 2026"}</p>
           <p className="text-xs sm:text-sm font-semibold opacity-90" style={{ color: s.tC }}>{venue || "The Grand Hotel, Delhi"}</p>
-        </div>
+        </motion.div>
       </div>
     </div>
   );
